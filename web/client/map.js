@@ -15,12 +15,11 @@ function drawCell(cell){
 
     var pol = new google.maps.Polygon({
         paths: coords,
-        strokeWeight: 0,
         fillColor: '#FF0000',
-        fillOpacity: 0.35
+        strokeWeight: 1,
+        strokeColor:'#666666',
+        fillOpacity: 0.4
     });
-
-    console.log("worka");
 
     pol.setMap(map);
 }
@@ -35,13 +34,49 @@ Template.mapdiv.helpers({
             var mapOptions = {
                 zoom: 15,
                 center: new google.maps.LatLng(40.186, -8.416),
-                mapTypeId: google.maps.MapTypeId.TERRAIN
+                mapTypeId: google.maps.MapTypeId.ROAD
             };
 
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-            console.log(Cells.find().fetch());
+            var styles = [{
+                "stylers": [
+                      { "invert_lightness": true },
+                      { "hue": "#00a1ff" },
+                      { "saturation": 30 }
+                    ]
+                }
+                ,{
+                    "featureType": "road",
+                    "elementType": "labels",
+                    "stylers": [{ "visibility": "off" }]
+                }
+                ,{
+                    "featureType": "road.highway",
+                    "stylers": [
+                      { },
+                      { "color": "#090909"},
+                      { "saturation": 0 }
+                    ]
+                  }
+                 ,{
+                    "featureType": "water",
+                    "stylers": [
+                      { "color": "#0099FF" } ,
+                      { "saturation": -60 }
+                    ]
+                  }
+                 ,{
+                    "featureType": "landscape",
+                    "stylers": [
+                      { "saturation": -90 },
+                      { "hue": "#0099FF" }
+                    ]
+                  }];
 
+            map.setOptions({styles: styles});
+
+            console.log(Cells.find().fetch());
 
             var cells = Cells.find();
             cells.forEach(function(cell){
