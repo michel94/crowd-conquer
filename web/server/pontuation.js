@@ -12,7 +12,7 @@ Pontuation.cell = function(lon, lat){
 	if(!this.cells[lon][lat]){
 		this.cells[lon][lat] = Cell(cell);
 	}
-	return this.cells[lon][lat]; 
+	return this.cells[lon][lat];
 }
 
 //Meteor.setInterval(Pontuation.updateUsers, 20000);
@@ -25,18 +25,18 @@ Pontuation.updateUsers = function(){
 			user.time--;
 			if(user.time == 0){
 				cell.teams[user.team]--;
-				delete user[i];	
+				delete user[i];
 			}
-			
+
 		});
-		
+
 	}
 }
 /*
 Pontuation.updateCells = function(){
 	for(var i=0; i<this.cells.length; ){
 		var cell = Cell(this.cells[i]);
-	
+
 		var dec = 5.0, total = 0;
 		for(var t=0; t<this.cells[i].users.length; t++){
 			total++;
@@ -79,15 +79,7 @@ Cell = function(data){
 
 //var cell = Pontuation.cell(35.62, 46.34);
 //Users.remove({});
-var user = User(Database.getUser("a@m"));
-var user = User(Database.getUser("b@m"));
-var user = User(Database.getUser("a@m"));
-var user = User(Database.getUser("e@m"));
 
-Pontuation.cell(35.62, 46.34).userKeepAlive('a@m');
-console.log(Pontuation.cell(35.62, 46.34).users);
-console.log(Pontuation.cell(35.62, 46.339999999).users);
-console.log(Pontuation.cell(35.62, 46.3399998).users);
 
 
 //console.log(Users.find({}).fetch());
@@ -97,3 +89,26 @@ console.log(Pontuation.cell(35.62, 46.3399998).users);
 //console.log(cell);
 
 //console.log(Cells.find().fetch());
+
+tests = function(){
+	var user = User(Database.getUser("a@m"));
+	var user = User(Database.getUser("b@m"));
+	var user = User(Database.getUser("a@m"));
+	var user = User(Database.getUser("e@m"));
+
+	Pontuation.cell(-8.416, 40.186);
+	Pontuation.cell(-8.416, 40.187);
+	Pontuation.cell(-8.416, 40.185);
+	Pontuation.cell(-8.416, 40.184);
+	Pontuation.cell(-8.416, 40.180);
+	Pontuation.cell(-8.413, 40.186);
+	Pontuation.cell(-8.411, 40.189);
+	Pontuation.cell(-8.4183232, 40.1883123);
+
+	//console.log(Pontuation.cell(35.62, 46.34).users);
+	//console.log(Pontuation.cell(35.62, 46.339999999).users);
+	//console.log(Pontuation.cell(35.62, 46.3399998).users);
+
+	console.log(Cells.find().fetch());
+
+}
