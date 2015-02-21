@@ -78,10 +78,15 @@ Cell = function(data){
 	cell.value = 100;
 	cell.userKeepAlive = function(email){
 		var user = this.users[email];
-		if(user)
+		if(user){
 			user.time = 30;
-		else{
+		}else{
 			this.users[email] = User(Database.getUser(email));
+			var user = this.users[email];
+			if(!this.teams[user.team])
+				this.teams[user.team] = 0
+			this.teams[user.team]++;
+			console.log(this.teams[user.team]);
 		}
 	}
 
