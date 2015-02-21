@@ -24,11 +24,11 @@ function drawCell(cell){
     pol.setMap(map);
 }
 
-Template.mapdiv.rendered = function(){
+Template.map.rendered = function(){
     Session.set("initialized", true);
 }
 
-Template.mapdiv.helpers({
+Template.map.helpers({
     dummy: function(){
         if(Session.get("initialized")){
             var mapOptions = {
