@@ -1,7 +1,63 @@
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polygon</title>
+    <style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+    }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+    // This example creates a simple polygon representing the Bermuda Triangle.
+
+    function drawCell(lat, lon, map){
+        var coords = [
+            new google.maps.LatLng(lat, lon),
+            new google.maps.LatLng(lat, lon + 0.001),
+            new google.maps.LatLng(lat + 0.001, lon + 0.001),
+            new google.maps.LatLng(lat + 0.001, lon),
+            new google.maps.LatLng(lat, lon),
+        ];
+
+        pol = new google.maps.Polygon({
+            paths: coords,
+            strokeWeight: 0,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+        });
+
+        pol.setMap(map);
+    }
+
+    function initialize() {
+        var mapOptions = {
+            zoom: 15,
+            center: new google.maps.LatLng(40.186, -8.416),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+
+        drawCell(40.186, -8.416, map);
+        drawCell(40.187, -8.416, map);
+        drawCell(40.186, -8.417, map);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+</head>
+
 <body>
 
     {{> loginButtons }}
     {{> das }}
+
+    <div id="map-canvas"></div>
 </body>
 
 <template name="das">
