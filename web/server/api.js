@@ -41,7 +41,6 @@ Router.route('/api/start', {where: 'server'})
 		}
 
 		this.response.writeHead(200, {'Content-Type': 'application/json'});
-    	this.response.end(JSON.stringify({}) );
-		
-	});
+    	this.response.end(JSON.stringify({'time': 60}));
 
+	});
