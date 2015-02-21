@@ -1,24 +1,6 @@
 Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
-        extended: false
-    }));
-
-/*Router.route('/api/example/', {where: 'server'})
-  .get(function () {
-  	console.log(this.params);
-    this.response.end('get request\n');
-  })
-  .post(function () {
-  	console.log(this.params);
-  	console.log(this.request);
-  	console.log(this.body);
-  	console.log(this.data);
-
-  	var json = this.request.body
-  	console.log(json);
-
-  	this.response.writeHead(200, {'Content-Type': 'application/json'});
-    this.response.end(JSON.stringify({asd: 'asd'}) );
-  });*/
+  extended: false
+}));
 
 function response(post, message){
 	post.response.writeHead(400, {'Content-Type': 'application/json'});
@@ -44,3 +26,4 @@ Router.route('/api/location', {where: 'server'})
     	this.response.end(JSON.stringify({'time': 60}));
 
 	});
+
