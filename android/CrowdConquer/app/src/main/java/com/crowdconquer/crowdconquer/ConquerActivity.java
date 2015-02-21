@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.crowdconquer.crowdconquer.services.LocationService;
+import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
+import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class ConquerActivity extends Activity {
@@ -18,9 +19,6 @@ public class ConquerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conquer);
 
@@ -35,7 +33,7 @@ public class ConquerActivity extends Activity {
     }
 
     private void startLocationService() {
-        Intent intent = new Intent(this, LocationService.class);
+        Intent intent = new Intent(this, BackgroundLocationService.class);
         startService(intent);
     }
 
