@@ -25,7 +25,7 @@ function response(post, message){
     post.response.end(JSON.stringify({'message': message}) );
 }
 
-Router.route('/api/start', {where: 'server'})
+Router.route('/api/location', {where: 'server'})
 	.post(function(){
 		if(!this.request.body.args){
 			response(this, 'No args parameter found');
