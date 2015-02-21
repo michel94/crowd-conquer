@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="522dp"
         android:orientation="vertical"
-        android:gravity="center_horizontal|center_vertical">
+        android:gravity="center_horizontal|center_vertical"
+        android:weightSum="1">
 
-    <RelativeLayout
+        <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -34,5 +37,17 @@
             android:id="@+id/conquerTextProgress"/>
 
     </RelativeLayout>
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="383dp"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:textAlignment="gravity"
+        android:layout_weight="0.54" />
 </LinearLayout>
