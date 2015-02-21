@@ -15,24 +15,34 @@ Pontuation.cell = function(lon, lat){
 	return this.cells[lon][lat];
 }
 
-//Meteor.setInterval(Pontuation.updateUsers, 1000);
 //Meteor.setInterval(Pontuation.updateCells, 1000);
 
-
 Pontuation.updateUsers = function(){
-	for(var cell in this.cells){
-		$.each(cell.users, function(i, user) {
-			console.log
-			user.time--;
-			if(user.time == 0){
-				cell.teams[user.team]--;
-				delete user[i];
+	var p = Pontuation;
+	for(var row in p.cells){
+		for(var col in p.cells[row]){
+			var users = p.cells[row][col].users;
+			for(var email in users){
+				console.log(email);
+				var user = users[email];
+				if(user){
+					user.time--;
+					console.log('time ' + user.time);
+					if(user.time <= 0){
+						p.cells[row][col].teams[user.team]--;
+						delete users[email];
+					}
+				}
 			}
-
-		});
-
+		}
 	}
 }
+
+Meteor.setInterval(Pontuation.updateUsers, 1000);
+/*Meteor.setInterval(function(){
+	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
+}, 10000);*/
+
 /*
 Pontuation.updateCells = function(){
 	for(var i=0; i<this.cells.length; ){
@@ -68,10 +78,15 @@ Cell = function(data){
 	cell.value = 100;
 	cell.userKeepAlive = function(email){
 		var user = this.users[email];
-		if(user)
+		if(user){
 			user.time = 30;
-		else{
+		}else{
 			this.users[email] = User(Database.getUser(email));
+			var user = this.users[email];
+			if(!this.teams[user.team])
+				this.teams[user.team] = 0
+			this.teams[user.team]++;
+			console.log(this.teams[user.team]);
 		}
 	}
 
@@ -106,10 +121,12 @@ tests = function(){
 	Pontuation.cell(-8.411, 40.189);
 	Pontuation.cell(-8.4183232, 40.1883123);
 
+	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
+
 	//console.log(Pontuation.cell(35.62, 46.34).users);
 	//console.log(Pontuation.cell(35.62, 46.339999999).users);
 	//console.log(Pontuation.cell(35.62, 46.3399998).users);
 
-	console.log(Cells.find().fetch());
+	//console.log(Cells.find().fetch());
 
 }

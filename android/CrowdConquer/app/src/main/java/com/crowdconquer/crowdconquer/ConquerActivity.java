@@ -42,6 +42,12 @@ public class ConquerActivity extends Activity {
             if (isNetworkEnabled == false || isGPSEnabled == false) {
                 showSettings(this);
             }
+         else{
+                setContentView(R.layout.activity_conquer);
+                startLocationService();
+                initViews();
+                new Thread(updateProgressBar).start();
+            }
     }
 
 
@@ -71,9 +77,10 @@ public class ConquerActivity extends Activity {
         });
 
         // Showing Alert Message
-        alertDialog.show();
+        //alertDialog.show();
 
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        AlertDialog alert = alertDialog.create();
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 setContentView(R.layout.activity_conquer);
@@ -82,6 +89,7 @@ public class ConquerActivity extends Activity {
                 new Thread(updateProgressBar).start();
             }
         });
+        alert.show();
     }
 
 
