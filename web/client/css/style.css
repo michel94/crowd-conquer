@@ -2,12 +2,36 @@ html, body, #map-canvas {
     height: 100%;
     margin: 0px;
     padding: 0px;
+    color: white;
+    font-family: "Lucida G, Helvetica";
+}
+
+body {
+    background: black;
+}
+
+#logo {
+    top: 0px;
+    font-size: 30pt;
 }
 
 .welcome-container {
-    height:100%;
-    background-image: url("/background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.background-map {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
 }
