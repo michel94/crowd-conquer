@@ -15,13 +15,14 @@ Pontuation.cell = function(lon, lat){
 	return this.cells[lon][lat];
 }
 
-//Meteor.setInterval(Pontuation.updateUsers, 20000);
+//Meteor.setInterval(Pontuation.updateUsers, 1000);
 //Meteor.setInterval(Pontuation.updateCells, 1000);
 
 
 Pontuation.updateUsers = function(){
 	for(var cell in this.cells){
 		$.each(cell.users, function(i, user) {
+			console.log
 			user.time--;
 			if(user.time == 0){
 				cell.teams[user.team]--;
