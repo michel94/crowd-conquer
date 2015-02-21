@@ -10,10 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.data.StaticData;
+import com.google.android.gms.common.SignInButton;
 
 public class WelcomeActivity extends Activity {
     //views
-    Button buttonGotIt;
+    SignInButton buttonGotIt;
     TextView textInfo;
 
     @Override
@@ -31,7 +32,7 @@ public class WelcomeActivity extends Activity {
     }
 
     private void initViews() {
-        buttonGotIt = (Button)findViewById(R.id.btngotit);
+        buttonGotIt = (SignInButton)findViewById(R.id.btngotit);
         textInfo = (TextView)findViewById(R.id.textInfo);
     }
 
@@ -41,7 +42,7 @@ public class WelcomeActivity extends Activity {
 
     //UI
     private void showGoogleSuccess() {
-        textInfo.setText(StaticData.user.getEmail() + " " + getResources().getString(R.string.googleSuccess));
+        textInfo.setText(StaticData.user.getEmail() + "\n" + getResources().getString(R.string.googleSuccess));
         buttonGotIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
