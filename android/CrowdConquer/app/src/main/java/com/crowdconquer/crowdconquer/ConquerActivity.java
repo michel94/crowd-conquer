@@ -7,8 +7,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
-import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class ConquerActivity extends Activity {
     int progress = 0;

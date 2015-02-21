@@ -20,8 +20,7 @@ public class BackgroundLocationService extends Service implements
         GooglePlayServicesClient.OnConnectionFailedListener,
         LocationListener {
 
-    public static final long UPDATE_INTERVAL = 5000 * 30;
-    public static final long FASTEST_INTERVAL = 1000 * 30;
+    public static final long UPDATE_INTERVAL = 300000;
 
     private LocationClient mLocationClient;
     private LocationRequest mLocationRequest;
@@ -34,9 +33,8 @@ public class BackgroundLocationService extends Service implements
 
         mInProgress = false;
         mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-//            .setInterval(UPDATE_INTERVAL) // Set the update interval to 5 seconds
-//            .setFastestInterval(FASTEST_INTERVAL); // Set the fastest update interval to 1 second
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(UPDATE_INTERVAL);
 
         servicesAvailable = servicesConnected();
         setUpLocationClientIfNeeded();
@@ -125,3 +123,5 @@ public class BackgroundLocationService extends Service implements
         }
     }
 }
+
+//TODO AUTO TURN-ON LOCATION IF DISABLED
