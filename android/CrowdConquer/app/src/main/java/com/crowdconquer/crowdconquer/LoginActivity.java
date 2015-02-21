@@ -11,8 +11,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        Log.e("googleapi", "" + resultCode);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
