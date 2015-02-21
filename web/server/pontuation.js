@@ -15,13 +15,14 @@ Pontuation.cell = function(lon, lat){
 	return this.cells[lon][lat]; 
 }
 
-//Meteor.setInterval(Pontuation.updateUsers, 20000);
+//Meteor.setInterval(Pontuation.updateUsers, 1000);
 //Meteor.setInterval(Pontuation.updateCells, 1000);
 
 
 Pontuation.updateUsers = function(){
 	for(var cell in this.cells){
 		$.each(cell.users, function(i, user) {
+			console.log
 			user.time--;
 			if(user.time == 0){
 				cell.teams[user.team]--;
@@ -79,16 +80,6 @@ Cell = function(data){
 
 //var cell = Pontuation.cell(35.62, 46.34);
 //Users.remove({});
-var user = User(Database.getUser("a@m"));
-var user = User(Database.getUser("b@m"));
-var user = User(Database.getUser("a@m"));
-var user = User(Database.getUser("e@m"));
-
-Pontuation.cell(35.62, 46.34).userKeepAlive('a@m');
-console.log(Pontuation.cell(35.62, 46.34).users);
-console.log(Pontuation.cell(35.62, 46.339999999).users);
-console.log(Pontuation.cell(35.62, 46.3399998).users);
-
 
 //console.log(Users.find({}).fetch());
 
