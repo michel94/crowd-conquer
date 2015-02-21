@@ -9,7 +9,6 @@ Database = {
 			Cells.insert({lon: lon, lat:lat, value: 100});
 			cell = Cells.findOne({lon: lon, lat:lat});
 		}
-		
 		return cell;
 	},
 	getUser: function(email){
@@ -30,4 +29,3 @@ function maxTeamId(){
 	else
 		return 0;
 }
-
