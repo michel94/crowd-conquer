@@ -11,4 +11,3 @@ console.log(Pontuation.cell(35.62, 46.3399998).users);
 console.log(Cells.find().fetch());
 
 })
-
