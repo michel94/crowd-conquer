@@ -40,25 +40,14 @@ public class ConquerActivity extends Activity {
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (isNetworkEnabled == false || isGPSEnabled == false) {
-
-              showSettings(this);
+                showSettings(this);
             }
-
-        isGPSEnabled =locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNetworkEnabled =locationManager
-                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if(isNetworkEnabled == false && isGPSEnabled == false) {
-            finish();
-        }
-        else {
-            setContentView(R.layout.activity_conquer);
-
-            startLocationService();
-            initViews();
-            new Thread(updateProgressBar).start();
-        }
+         else{
+                setContentView(R.layout.activity_conquer);
+                startLocationService();
+                initViews();
+                new Thread(updateProgressBar).start();
+            }
     }
 
 
@@ -76,7 +65,6 @@ public class ConquerActivity extends Activity {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
-
             }
         });
 
@@ -84,13 +72,24 @@ public class ConquerActivity extends Activity {
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-
+                finish();
             }
         });
 
         // Showing Alert Message
-        alertDialog.show();
+        //alertDialog.show();
 
+        AlertDialog alert = alertDialog.create();
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                setContentView(R.layout.activity_conquer);
+                startLocationService();
+                initViews();
+                new Thread(updateProgressBar).start();
+            }
+        });
+        alert.show();
     }
 
 
@@ -115,7 +114,7 @@ public class ConquerActivity extends Activity {
                 progress++;
                 runOnUiThread(refreshProgressBar);
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 } catch (InterruptedException ignored) { }
             }
         }

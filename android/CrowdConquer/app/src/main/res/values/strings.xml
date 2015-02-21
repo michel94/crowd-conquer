@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CrowdConquer</string>
 
+    <string name="welcome">Welcome!</string>
     <string name="login">Login</string>
     <string name="gotit">Got it!</string>
+    <string name="googleSuccess">will be used.\nMake sure you login with the same account in the web app.</string>
+    <string name="googleError">Please create a Google Account in this device and try again.</string>
 </resources>
