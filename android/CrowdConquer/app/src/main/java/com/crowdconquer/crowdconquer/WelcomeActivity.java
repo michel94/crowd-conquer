@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.data.StaticData;
 
 public class WelcomeActivity extends Activity {
     //views
     Button buttonGotIt;
+    TextView textInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class WelcomeActivity extends Activity {
 
     private void initViews() {
         buttonGotIt = (Button)findViewById(R.id.btngotit);
+        textInfo = (TextView)findViewById(R.id.textInfo);
     }
 
     private void startListeners() {
@@ -38,6 +41,7 @@ public class WelcomeActivity extends Activity {
 
     //UI
     private void showGoogleSuccess() {
+        textInfo.setText(StaticData.user.getEmail() + " " + getResources().getString(R.string.googleSuccess));
         buttonGotIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +51,7 @@ public class WelcomeActivity extends Activity {
     }
 
     private void showGoogleError() {
+        textInfo.setText(getResources().getString(R.string.googleError));
         buttonGotIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

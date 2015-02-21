@@ -10,12 +10,25 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical">
-        
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="@string/welcome"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/textInfo"/>
+
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gotit"
             android:id="@+id/btngotit"/>
-
 
     </LinearLayout>
 </LinearLayout>
