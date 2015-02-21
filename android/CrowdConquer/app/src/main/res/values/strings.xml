@@ -2,4 +2,5 @@
     <string name="app_name">CrowdConquer</string>
 
     <string name="login">Login</string>
+    <string name="gotit">Got it!</string>
 </resources>
