@@ -1,18 +1,19 @@
 Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
-  extended: false
-}));
+        extended: false
+    }));
 
 function response(post, message){
 	post.response.writeHead(400, {'Content-Type': 'application/json'});
-    post.response.end(JSON.stringify({'message': message}) );
+  post.response.end(JSON.stringify({'message': message}) );
 }
 
 Router.route('/api/location', {where: 'server'})
 	.post(function(){
-		if(!this.request.body.args){
-			response(this, 'No args parameter found');
-			return;
-		}
+    console.log("ok");
+    if(!this.request.body.args){
+      response(this, 'No args parameter found');
+      return;
+    }
 
 		var json = this.request.body.args;
 		try{
@@ -23,7 +24,10 @@ Router.route('/api/location', {where: 'server'})
 		}
 
 		this.response.writeHead(200, {'Content-Type': 'application/json'});
-    	this.response.end(JSON.stringify({'time': 60}));
-
+    this.response.end(JSON.stringify({'time': 60}));
 	});
 
+Router.route('/api/:others', {where: 'server'})
+  .post(function(){
+    response(this, 'No api function here');
+  })
