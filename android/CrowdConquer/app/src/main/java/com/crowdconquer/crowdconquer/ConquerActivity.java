@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.crowdconquer.crowdconquer.services.Api;
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
 
 public class ConquerActivity extends Activity {
@@ -39,8 +40,10 @@ public class ConquerActivity extends Activity {
         @Override
         public void run() {
             while (true) {
-                if (progress == 100)
+                if (progress == 100) {
+                    Api.startConquer();
                     break;
+                }
                 progress++;
                 runOnUiThread(refreshProgressBar);
                 try {
