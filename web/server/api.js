@@ -9,17 +9,15 @@ function response(post, message){
 
 Router.route('/api/location', {where: 'server'})
 	.post(function(){
-    console.log("REKT");
     if(!this.request.body.args){
       response(this, 'No args parameter found');
       return;
     }
-
 		var json = this.request.body.args;
-        console.log(json);
 		try{
-			json = JSON.parse(json);
+			json = eval(json);
 		}catch(err){
+            console.log(err);
 			response(this, 'Json could not be parsed');
 			return;
 		}
