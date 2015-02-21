@@ -9,7 +9,6 @@ function response(post, message){
 
 Router.route('/api/location', {where: 'server'})
 	.post(function(){
-    console.log("ok");
     if(!this.request.body.args){
       response(this, 'No args parameter found');
       return;
