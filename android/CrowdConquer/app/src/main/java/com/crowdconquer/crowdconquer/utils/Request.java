@@ -23,9 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
 
 public class Request {
-    private String METEOR_POST_AUX_BEGIN = "args=";
-    private String METEOR_POST_AUX_END = "' }";
-
     private String type;
     private String url;
     private Object data;
@@ -108,7 +105,7 @@ public class Request {
             jsonObject.accumulate("email", "amccbaptista@gmail.com");//StaticData.user.getEmail());
             //TODO...
             jsonObject.accumulate("lat", 40.186638);//StaticData.user.getLocation().getLatitude());
-            jsonObject.accumulate("long", -8.415508);//StaticData.user.getLocation().getLongitude());
+            jsonObject.accumulate("lon", -8.415508);//StaticData.user.getLocation().getLongitude());
             argsObject.accumulate("args", jsonObject);
             String json = argsObject.toString();
             se = new StringEntity(json, "UTF-8");

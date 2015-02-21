@@ -10,7 +10,7 @@ import com.crowdconquer.crowdconquer.services.Api;
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
 
 public class ConquerActivity extends Activity {
-    int progress = 0;
+    private int progress = 0;
 
     //views
     private ProgressBar conquerProgressBar;
