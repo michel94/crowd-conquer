@@ -29,7 +29,7 @@ Pontuation.updateUsers = function(){
 					user.time--;
 					console.log('time ' + user.time);
 					if(user.time <= 0){
-						cell.teams[user.team]--;
+						p.cells[row][col].teams[user.team]--;
 						delete users[email];
 					}
 				}
