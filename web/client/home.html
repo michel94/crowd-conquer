@@ -1,7 +1,37 @@
-<Template name="Home">
-	
-</Template>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>Map</title>
+	<style>
+	html, body, #map-canvas {
+		height: 100%;
+		margin: 0px;
+		padding: 0px
+	}
+	</style>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+	<script>
 
-<Template name="A">
-	
-</Template>
+
+	</script>
+</head>
+
+<body>
+
+	{{> loginButtons }}
+	{{> das }}
+	{{> mapdiv }}
+
+
+</body>
+
+<template name="das">
+	{{#each d}}
+		{{email}}
+	{{/each}}
+</template>
+
+<template name="mapdiv">
+	<div id="map-canvas"></div>
+	{{dummy}}
+</template>

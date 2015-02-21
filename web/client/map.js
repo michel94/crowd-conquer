@@ -87,5 +87,4 @@ Template.mapdiv.helpers({
             //drawCell(40.186, -8.417);
         }
     }
-
 });
