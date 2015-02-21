@@ -34,7 +34,8 @@ Template.map.helpers({
             var mapOptions = {
                 zoom: 15,
                 center: new google.maps.LatLng(40.186, -8.416),
-                mapTypeId: google.maps.MapTypeId.ROAD
+                mapTypeId: google.maps.MapTypeId.ROAD,
+                backgroundColor: "#141414"
             };
 
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
