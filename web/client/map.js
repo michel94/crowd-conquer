@@ -196,13 +196,11 @@ Template.welcome.helpers({
 });*/
 
 function showArrays(event) {
-  var team = Cells.findOne({lat: event.latLng.lat().toFixed(6), lon: event.latLng.lng().toFixed(6) }).owner;
-  var email = Users.findOne({team: team}).email;
 
   var vertices = this.getPath();
 
   var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
-                      '<b>Controlled by: </b>' + email;
+                      '<b>Controlled by: Solo Team</b>';
 
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
