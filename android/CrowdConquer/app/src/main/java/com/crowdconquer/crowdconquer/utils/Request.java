@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,12 +78,12 @@ public class Request {
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 inputStream = httpResponse.getEntity().getContent();
                 if(inputStream != null) {
+
                     result = inputStreamToString(inputStream);
-                    String [] resultsParted = result.split(":\"");
-                    resultsParted = resultsParted[1].split("\"");
-                    StaticData.user.setTerritoryOwner(resultsParted[0]);
-                  //  StaticData.user.setTimeToWin(resultsParted[1]);
-                    Log.e("REKTTTTTT", StaticData.user.getTerritoryOwner());
+
+                    //String [] resultsParted = result.split(":");
+                    StaticData.user.setTerritoryOwner(result);
+
                 }else result = "error";
 
             } catch (IOException e) {
