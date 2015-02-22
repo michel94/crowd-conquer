@@ -1,5 +1,7 @@
 package com.crowdconquer.crowdconquer;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -47,6 +49,9 @@ public class ConquerActivity extends Activity {
                 startLocationService();
                 initViews();
                 new Thread(updateProgressBar).start();
+
+                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
+                usernameTextView.setText(getAccountInfo());
             }
     }
 
@@ -87,6 +92,9 @@ public class ConquerActivity extends Activity {
                 startLocationService();
                 initViews();
                 new Thread(updateProgressBar).start();
+
+                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
+                usernameTextView.setText(getAccountInfo());
             }
         });
         alert.show();
@@ -127,4 +135,20 @@ public class ConquerActivity extends Activity {
             conquerTextProgress.setText(progress + "%");
         }
     };
+
+    private String getAccountInfo() {
+        AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        Account[] list = manager.getAccounts();
+
+        String currentAccount = null;
+        for (Account account: list) {
+            currentAccount = account.name;
+            if (currentAccount.contains("@gmail.com"))
+                break;
+            else currentAccount = null;
+        }
+        String[] splits =currentAccount.split("@");
+        currentAccount = splits[0]  + " : BlueTeam";
+        return currentAccount;
+    }
 }

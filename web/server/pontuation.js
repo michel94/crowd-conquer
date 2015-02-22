@@ -34,8 +34,8 @@ Pontuation.updateUsers = function(){
 		}
 	}
 }
-
 Meteor.setInterval(Pontuation.updateUsers, 1000);
+
 Meteor.setInterval(function(){
 	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
 }, 10000);
@@ -47,12 +47,13 @@ Pontuation.updateCells = function(){
 	for(var row in p.cells){
 		for(var col in p.cells[row]){
 			var cell = p.cells[row][col];
-			cell.avail = cell.value;
 			if(cell.owner == 0){
+				if(!cell.hasOwnProperty("avail"))
+					cell.avail = cell.value;
 				for(var t in cell.teams){
 					console.log(t, cell.ownership[t]);
-					cell.avail -= cell.teams[t] * C * cell.value;
 					console.log(cell.avail);
+					cell.avail -= cell.teams[t] * C * cell.value;
 					if(cell.avail < 0){
 						cell.ownership[t] += cell.avail;
 						cell.avail = 0;
@@ -71,6 +72,7 @@ Pontuation.updateCells = function(){
 						}
 					}
 					cell.owner = mi;
+					console.log('New owner is team ' + cell.owner);
 				}
 			}
 			/*for(var t in cell.teams){
@@ -80,8 +82,9 @@ Pontuation.updateCells = function(){
 	}
 	
 }
-Meteor.setInterval(Pontuation.updateCells, 1000);
 
+			
+Meteor.setInterval(Pontuation.updateCells, 1000);
 
 User = function(data){
 	var user = {};
@@ -132,6 +135,7 @@ Cell = function(data){
 //console.log(Cells.find().fetch());
 
 tests = function(){
+	Users.remove({});
 	var user = User(Database.getUser("a@m"));
 	var user = User(Database.getUser("b@m"));
 	var user = User(Database.getUser("a@m"));

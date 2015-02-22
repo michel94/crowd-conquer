@@ -1,0 +1,75 @@
+html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    font-family: "Lucida G, Helvetica";
+}
+
+body {
+    background: black;
+}
+
+#logo {
+    top: 0px;
+    font-size: 30pt;
+    padding-top: 200px;
+    padding-bottom: 40px;
+    color: white;
+}
+
+#login-absolute {
+    position: absolute;
+    top: 0px;
+    margin-top: 14px;
+    z-index: 10;
+    right: 70px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid #aaffffff;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 28px;
+    color: black;
+}
+
+#login-buttons {
+    cursor: pointer;
+}
+
+#login-buttons-logout {
+    display: none !important;
+}
+
+.welcome-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.background-map {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.white {
+    color: #ffffff;
+}
+
+.bold {
+    font-style: bold;
+}
+
+.pointer {
+    cursor: pointer;
+}

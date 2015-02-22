@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#111111"
+    android:weightSum="1">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal|center_vertical">
+        android:layout_height="68dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id = "@+id/textViewOwner"
+        android:textColor="#ffffff"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Actual Owner : Lost Cause"/>
+
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:paddingTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="276dp"
+        android:gravity="center"
+
+        >
+        <ImageView
+            android:layout_width="161dp"
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="42dp"
+            android:layout_height="161dp"
+            android:scaleType="fitXY"
+
+            android:gravity = "center_vertical|center_horizontal"
+            android:background="@drawable/roundmap"/>
 
         <ProgressBar
             android:id="@+id/circularProgressbar"
@@ -22,6 +44,7 @@
             android:progress="0"
             android:max="100"
             android:secondaryProgress="100"
+            android:progressTint="#ffffff"
             android:progressDrawable="@drawable/circular" />
 
         <TextView
@@ -30,9 +53,39 @@
             android:textSize="25sp"
             android:text="O%"
             android:textStyle="bold"
+            android:textColor="#ffffff"
             android:gravity="center_vertical|center_horizontal"
             android:id="@+id/conquerTextProgress"/>
 
+
     </RelativeLayout>
-    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id = "@+id/textViewPhrase"
+        android:textColor="#ffffff"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="KEEP GOING STRANGER THIS TILE IS ALMOST YOURS!"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="New Text"
+        android:id="@+id/textViewEmail"
+        android:gravity="right|bottom"
+        android:textAlignment="gravity"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff" />
+
 </LinearLayout>

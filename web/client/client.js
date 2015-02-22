@@ -1,9 +1,12 @@
-Router.route('/world', function () {
-  this.render('map', { });
-});
-
 Router.route('/', function () {
-  this.render('welcome', { });
+    if (Meteor.user() || Meteor.loggingIn()) {
+        Session.set("initialized", false);
+        this.render('map', { });
+    }
+    else {
+        Session.set("initialized", false);
+        this.render('welcome', { });
+    }
 });
 
 Tracker.autorun(function() {
@@ -12,12 +15,5 @@ Tracker.autorun(function() {
         //console.log(email);
         if(!Users.findOne({email: email}))
             Users.insert({email: email});
-    }
-});
-
-Template.das.helpers({
-    d: function(){
-        console.log(Users.find());
-        return Users.find();
     }
 });
