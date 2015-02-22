@@ -10,9 +10,11 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.crowdconquer.crowdconquer.data.StaticData;
 import com.crowdconquer.crowdconquer.services.Api;
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
 
@@ -22,6 +24,7 @@ public class ConquerActivity extends Activity {
     //views
     private ProgressBar conquerProgressBar;
     private TextView conquerTextProgress;
+    TextView latlongTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class ConquerActivity extends Activity {
         boolean isGPSEnabled;
         boolean isNetworkEnabled;
         boolean canIStart = true;
+
+
 
         Context mContext = this;
 
@@ -45,13 +50,7 @@ public class ConquerActivity extends Activity {
                 showSettings(this);
             }
          else{
-                setContentView(R.layout.activity_conquer);
-                startLocationService();
-                initViews();
-                new Thread(updateProgressBar).start();
-
-                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
-                usernameTextView.setText(getAccountInfo());
+                initAllElements();
             }
     }
 
@@ -88,13 +87,7 @@ public class ConquerActivity extends Activity {
         alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                setContentView(R.layout.activity_conquer);
-                startLocationService();
-                initViews();
-                new Thread(updateProgressBar).start();
-
-                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
-                usernameTextView.setText(getAccountInfo());
+                initAllElements();
             }
         });
         alert.show();
@@ -104,6 +97,19 @@ public class ConquerActivity extends Activity {
     private void initViews() {
         conquerProgressBar = (ProgressBar)findViewById(R.id.circularProgressbar);
         conquerTextProgress = (TextView)findViewById(R.id.conquerTextProgress);
+    }
+
+    private void initAllElements(){
+        setContentView(R.layout.activity_conquer);
+        startLocationService();
+        initViews();
+        new Thread(updateProgressBar).start();
+
+        TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
+        usernameTextView.setText(getAccountInfo());
+
+        latlongTextView = (TextView)findViewById(R.id.textViewLatLong);
+
     }
 
     private void startLocationService() {
@@ -132,6 +138,10 @@ public class ConquerActivity extends Activity {
         public void run() {
             conquerProgressBar.setProgress(progress);
             conquerTextProgress.setText(progress + "%");
+            if(StaticData.user.getLocation() != null) {
+                String textLatLong = "Lat: " + Double.toString(StaticData.user.getLocation().getLatitude()) + " Long:" + Double.toString(StaticData.user.getLocation().getLongitude());
+                latlongTextView.setText(textLatLong);
+            }
         }
     };
 

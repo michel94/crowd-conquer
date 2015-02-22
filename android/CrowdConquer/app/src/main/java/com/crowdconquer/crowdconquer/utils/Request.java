@@ -77,9 +77,10 @@ public class Request {
 
                 HttpResponse httpResponse = httpClient.execute(httpPost);
                 inputStream = httpResponse.getEntity().getContent();
-                if(inputStream != null)
+                if(inputStream != null) {
                     result = inputStreamToString(inputStream);
-                else result = "error";
+
+                }else result = "error";
                 Log.i("rekt", result);
 
             } catch (IOException e) {

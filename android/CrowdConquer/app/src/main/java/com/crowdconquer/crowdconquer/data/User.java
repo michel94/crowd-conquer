@@ -5,6 +5,7 @@ import android.location.Location;
 public class User {
     private String email;
     private Location location;
+    
 
     public User(String email) {
         this.email = email;
