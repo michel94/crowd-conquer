@@ -29,3 +29,4 @@ function maxTeamId(){
 	else
 		return 0;
 }
+

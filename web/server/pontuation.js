@@ -72,6 +72,8 @@ Pontuation.updateCells = function(){
 						}
 					}
 					cell.owner = mi;
+					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+
 					console.log('New owner is team ' + cell.owner);
 				}
 			}
@@ -97,13 +99,15 @@ User = function(data){
 
 Cell = function(data){
 	var cell = {};
+	cell._id = data._id;
+	console.log(cell._id)
 	cell.value = data.value;
+	cell.owner = data.owner;
 	cell.lon = data.lon;
 	cell.lat = data.lat;
 	cell.users = {}; // current users: maps email to User
 	cell.teams = {}; // number of elements of each team in this cell
 	cell.ownership = {}; // empty ownership means that no one owns the cell
-	cell.owner = 0;
 	cell.userKeepAlive = function(email){
 		var user = this.users[email];
 		if(user){
