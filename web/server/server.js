@@ -3,15 +3,19 @@ Meteor.startup(function(){
 });
 
 Meteor.methods({
+    /*login: function (email){
+        Database.getUser(email);
+    },*/
     createTeam: function (post) {
-      console.log("create Team");
-      var id = Teams.find().fetch().length+1;
-      Teams.insert({'teamID':id, 'name':post.name});
-      Users.findOne({email:Meteor.user().services.google.email}).team = id;
-      Users.update({email:Meteor.user().services.google.email}, {$set: {team:id}});
+		console.log("create Team");
+		var email = Meteor.user().services.google.email;
+		var team = Users.findOne({email: email}).team;
+		Teams.insert({'teamID': team, 'name': post.name});
     },
     joinTeam: function (post) {
-      console.log("join Team");
+    	var email = Meteor.user().services.google.email;
+
+      	console.log("join Team");
     },
     leaveTeam: function (post) {
         Users.update({email:Meteor.user().services.google.email}, {$set: {team:null}});

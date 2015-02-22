@@ -6,7 +6,7 @@ Database = {
 
 		var cell = Cells.findOne({lon: lon, lat:lat});
 		if(!cell){
-			Cells.insert({lon: lon, lat:lat, value: 100, owner: 0});
+			Cells.insert({lon: lon, lat:lat, value: 10, owner: 0});
 			cell = Cells.findOne({lon: lon, lat:lat});
 		}
 		return cell;
@@ -14,7 +14,7 @@ Database = {
 	getUser: function(email){
 		var user = Users.findOne({email: email});
 		if(!user){
-			Users.insert({email: email, team: maxTeamId('team')+1, color: "#FF0000"} );
+			Users.insert({email: email, team: maxTeamId('team')+1} );
 		}
 		return Users.findOne({email: email});
 	}
