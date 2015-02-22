@@ -78,10 +78,11 @@ public class Request {
                 inputStream = httpResponse.getEntity().getContent();
                 if(inputStream != null) {
                     result = inputStreamToString(inputStream);
-                    String [] resultsParted = result.split(" ");
+                    String [] resultsParted = result.split(":\"");
+                    resultsParted = resultsParted[1].split("\"");
                     StaticData.user.setTerritoryOwner(resultsParted[0]);
-                    StaticData.user.setTimeToWin(resultsParted[1]);
-
+                  //  StaticData.user.setTimeToWin(resultsParted[1]);
+                    Log.e("REKTTTTTT", StaticData.user.getTerritoryOwner());
                 }else result = "error";
 
             } catch (IOException e) {
