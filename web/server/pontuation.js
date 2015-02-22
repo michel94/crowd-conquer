@@ -118,10 +118,10 @@ Pontuation.updateCells = function(){
 			}*/
 		}
 	}
-	
+
 }
 
-			
+
 Meteor.setInterval(Pontuation.updateCells, 1000);
 
 User = function(data){
