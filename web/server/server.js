@@ -7,14 +7,15 @@ Meteor.methods({
         Database.getUser(email);
     },*/
     createTeam: function (post) {
-		console.log("create Team");
 		var email = Meteor.user().services.google.email;
-		var team = Users.findOne({email: email}).team;
-		Teams.insert({'teamID': team, 'name': post.name});
+		var id = Users.findOne({email: email}).team;
+		Teams.insert({'teamID': id, 'name': post.name});
+        var id = Teams.find().fetch().length+1;
+        Users.findOne({email:Meteor.user().services.google.email}).team = id;
+        Users.update({email:Meteor.user().services.google.email}, {$set: {team:id}});
     },
     joinTeam: function (post) {
     	var email = Meteor.user().services.google.email;
-
       	console.log("join Team");
     },
     leaveTeam: function (post) {
