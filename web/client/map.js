@@ -23,6 +23,14 @@ function drawCell(cell){
         fillOpacity: 0.4
     });
 
+    google.maps.event.addListener(pol,"mouseover",function(){
+        this.setOptions({fillColor: "#08c"});
+    });
+
+    google.maps.event.addListener(pol,"mouseout",function(){
+        this.setOptions({fillColor: "#FF0000"});
+    });
+
     pol.setMap(map);
 }
 
@@ -40,7 +48,7 @@ Template.map.helpers({
                 backgroundColor: "#141414"
             };
 
-            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
 
             var styles = [{
                 "stylers": [
