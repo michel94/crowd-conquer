@@ -23,6 +23,9 @@
                 <li class="sidebar-brand white bold" id="user-logo-sidebar">
                     Crowd Conquer
                 </li>
+                <div id="profilePicContainer">
+                    <img src="{{profilePicture}}" class="circlePic" />
+                </div>
                 {{#if iHaveTeam}}
                 <li>
                     <a href="#" onclick="showLeave()">Leave team</a>
@@ -54,24 +57,30 @@
     <div id="map-canvas"></div>
     {{dummy}}
 
-    <div id="leave-panel" class="main-panel">
-        Leave
-    </div>
-
     <div id="create-panel" class="main-panel">
-        Create
+        <h2>Create team</h2>
+        <p>Anyone can join your team and conquer tiles.</p>
+        <p>Name: <input type="text" class="form-control" id="name"></p>
+        <div id="createButton" class="button-flat-bottom">
+            Create
+        </div>
     </div>
 
     <div id="join-panel" class="main-panel">
-        Join
+        <div class="bottom-flat-bottom">
+            <h2>Join</h2>
+            <p>Coming soon!</p>
+        </div>
     </div>
 
     <div id="ranking-panel" class="main-panel">
-        Ranking
+        <h2>Ranking</h2>
+        <p>Coming soon!</p>
     </div>
 
     <div id="about-panel" class="main-panel">
-        About
+        <h2>About</h2>
+        <p>Rekt rekt rekt...</p>
     </div>
 
     <script>
@@ -87,8 +96,7 @@
         });
 
         function showLeave() {
-            resetMainPanel();
-            $("#leave-panel").show();
+            Meteor.call('leaveTeam');
         }
 
         function showJoin() {
