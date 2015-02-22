@@ -1,6 +1,8 @@
 var map;
 Session.set("initialized", false);
 var colors = {};
+var cellTeam;
+var cellTeamID;
 
 function drawCell(cell){
     var lat = cell.lat;
@@ -18,8 +20,6 @@ function drawCell(cell){
     if(color == null)
         color = colors[cell.owner] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
 
-    console.log(color);
-
     var pol = new google.maps.Polygon({
         paths: coords,
         fillColor: color,
@@ -33,7 +33,7 @@ function drawCell(cell){
     });
 
     google.maps.event.addListener(pol,"mouseout", function(){
-        this.setOptions({fillColor: "#FF0000"});
+        this.setOptions({fillColor: color});
     });
 
     google.maps.event.addListener(pol, 'click', showArrays);
@@ -44,6 +44,8 @@ function drawCell(cell){
 
 Template.map.rendered = function(){
     Session.set("initialized", true);
+    cellTeam = "EQUIPA XPTO"
+    cellTeamID = 4;
 }
 
 Template.map.helpers({
@@ -95,8 +97,6 @@ Template.map.helpers({
 
             map.setOptions({styles: styles});
 
-            console.log("o");
-
             var cells = Cells.find();
             cells.forEach(function(cell){
                 if(cell.owner > 0)
@@ -106,6 +106,7 @@ Template.map.helpers({
     },
 
     myTeam: function() {
+        if (!Meteor.user()) return "";
         var id = Users.findOne({email:Meteor.user().services.google.email}).team;
         if (id)
             return Teams.findOne({teamID:id}).name;
@@ -179,7 +180,7 @@ function showArrays(event) {
   var vertices = this.getPath();
 
   var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
-                      '<b>Controlled by:</b> DreamTeam (69)<br><b>Level:</b> 92';
+                      '<b>Controlled by: </b>' + cellTeam + '(' + cellTeamID + ')' + ')<br><b>Level:</b> 92';
 
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
