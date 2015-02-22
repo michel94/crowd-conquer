@@ -32,15 +32,15 @@ public class User {
         return timeToWin;
     }
 
-    public void getTimeToWin(String timeToWin) {
+    public void setTimeToWin(String timeToWin) {
         this.timeToWin = timeToWin;
     }
 
-    public void getTerritoryOwner(String territoryOwner) {
+    public void setTerritoryOwner(String territoryOwner) {
         this.territoryOwner = territoryOwner;
     }
 
-    public String setTerritoryOwner() {
+    public String getTerritoryOwner() {
         return territoryOwner;
     }
 

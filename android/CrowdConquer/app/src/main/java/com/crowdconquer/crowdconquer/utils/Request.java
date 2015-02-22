@@ -78,6 +78,9 @@ public class Request {
                 inputStream = httpResponse.getEntity().getContent();
                 if(inputStream != null) {
                     result = inputStreamToString(inputStream);
+                    String [] resultsParted = result.split(" ");
+                    StaticData.user.setTerritoryOwner(resultsParted[0]);
+                    StaticData.user.setTimeToWin(resultsParted[1]);
 
                 }else result = "error";
 

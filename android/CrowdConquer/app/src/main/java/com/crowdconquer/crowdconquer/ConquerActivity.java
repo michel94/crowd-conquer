@@ -10,11 +10,14 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.data.StaticData;
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
+
+import org.w3c.dom.Text;
 
 public class ConquerActivity extends Activity {
 
@@ -23,6 +26,7 @@ public class ConquerActivity extends Activity {
     private TextView conquerTextProgress;
     private TextView latlongTextView;
     private TextView usernameTextView;
+    private TextView ownerTextView;
     private boolean isGPSEnabled;
     private boolean isNetworkEnabled;
     private boolean canIStart;
@@ -88,6 +92,8 @@ public class ConquerActivity extends Activity {
         conquerTextProgress = (TextView)findViewById(R.id.conquerTextProgress);
         usernameTextView = (TextView)findViewById(R.id.textViewEmail);
         latlongTextView = (TextView)findViewById(R.id.textViewLatLong);
+        ownerTextView = (TextView)findViewById(R.id.textViewOwner);
+
     }
 
     private void initAllElements(){
@@ -128,11 +134,27 @@ public class ConquerActivity extends Activity {
         public void run() {
         conquerProgressBar.setProgress(progress);
         conquerTextProgress.setText(progress + "%");
+
         if(StaticData.user.getLocation() != null) {
+            String textTimer = StaticData.user.getTimeToWin();
             String textLatLong = "Lat: " + Double.toString(StaticData.user.getLocation().getLatitude()) + " Long:" + Double.toString(StaticData.user.getLocation().getLongitude());
+
             latlongTextView.setText(textLatLong);
         }
+        if(StaticData.user.getTerritoryOwner() != null){
+            String textTileOwner = StaticData.user.getTerritoryOwner();
+            ownerTextView.setText("Actual Owner:\n" + textTileOwner);
         }
+        else
+            ownerTextView.setText("Actual Owner:\nEMPTY");
+
+        if(StaticData.user.getTimeToWin() != null){
+            String textTimeToWin = StaticData.user.getTimeToWin();
+            Log.e("REKT JSON TIME", textTimeToWin);
+        }
+        else
+            Log.e("REKT JSON TIME", "TIME IS FUCKING RELATIVE, GET OVER IT");
+    }
     };
 
     private String getAccountInfo() {
