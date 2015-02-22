@@ -119,8 +119,21 @@ Template.map.helpers({
         console.log(id);
         if (id) return true;
         return false;
+    },
+
+    profilePicture : function() {
+        return Meteor.user().services.google.picture;
     }
 });
+
+Template.map.events = {
+    'click #createButton': function(){
+        var name = $("#name").val();
+        Meteor.call('createTeam', {'name': name});
+        $(".main-panel").hide();
+        $("#name").val("");
+    }
+}
 
 /*Template.welcome.rendered = function(){
     Session.set("initialized", true);
