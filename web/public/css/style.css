@@ -8,6 +8,8 @@ html, body, #map-canvas {
 
 body {
     background: black;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 #map-canvas img {
@@ -34,6 +36,10 @@ body {
     padding-right: 10px;
     line-height: 28px;
     color: black;
+}
+
+#login-absolute:hover {
+    background: rgba(255,255,255,1.0);
 }
 
 #login-buttons {
