@@ -44,7 +44,6 @@ function drawCell(cell){
 
 Template.map.rendered = function(){
     Session.set("initialized", true);
-    cellTeam = "EQUIPA XPTO"
     cellTeamID = 4;
 }
 
@@ -197,11 +196,13 @@ Template.welcome.helpers({
 });*/
 
 function showArrays(event) {
+  var team = Cells.findOne({lat: event.latLng.lat().toFixed(6), lon: event.latLng.lng().toFixed(6) }).owner;
+  var email = Users.findOne({team: team}).email;
 
   var vertices = this.getPath();
 
   var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
-                      '<b>Controlled by: </b>' + cellTeam + '(' + cellTeamID + ')' + ')<br><b>Level:</b> 92';
+                      '<b>Controlled by: </b>' + email;
 
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
