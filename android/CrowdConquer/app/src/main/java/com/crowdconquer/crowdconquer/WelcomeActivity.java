@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.data.StaticData;
@@ -34,18 +33,20 @@ public class WelcomeActivity extends Activity {
     }
 
     private void initViews() {
+
         buttonGotIt = (SignInButton)findViewById(R.id.btngotit);
         welcomeInfo = (TextView)findViewById(R.id.welcomeView);
         textInfo = (TextView)findViewById(R.id.textInfo);
+
         welcomeInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
         textInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
+        buttonGotIt.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
     }
 
     private void startListeners() {
 
     }
 
-    //UI
     private void showGoogleSuccess() {
         textInfo.setText(StaticData.user.getEmail() + "\n" + getResources().getString(R.string.googleSuccess));
         buttonGotIt.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,6 @@ public class WelcomeActivity extends Activity {
         return currentAccount;
     }
 
-    //Activity
     private void loadConquer() {
         Intent intent = new Intent(WelcomeActivity.this, ConquerActivity.class);
         WelcomeActivity.this.startActivity(intent);

@@ -84,20 +84,12 @@ public class BackgroundLocationService extends Service implements
             mLocationClient = new LocationClient(this, this, this);
     }
 
-    /*
-     * LocationListener Callbacks
-     */
-
     @Override
     public void onLocationChanged(Location location) {
         Log.i("rekt", String.valueOf(location));
         StaticData.user.setLocation(location);
         new Thread(sendLocation).start();
     }
-
-    /*
-    * GooglePlayServicesClient Callbacks
-    */
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -115,14 +107,9 @@ public class BackgroundLocationService extends Service implements
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         mInProgress = false;
-        /*
-        * Google Play services can resolve some errors it detects.
-        * If the error has a resolution, try sending an Intent to
-        * start a Google Play services activity that can resolve
-        * error.
-        */
+
         if (!connectionResult.hasResolution()) {
-            // If no resolution is available, display an error dialog
+
         }
     }
 

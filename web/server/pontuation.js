@@ -75,17 +75,21 @@ Pontuation.updateCells = function(){
 					cell.owner = mi;
 					cell.ownership = {};
 					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+					delete cell.avail;
 
 					console.log('New owner is team ' + cell.owner);
 				}
 			}else{
-				console.log('owner>0');
+				console.log(cell.teams);
 				if(!cell.hasOwnProperty("avail"))
 					cell.avail = cell.value;
 				for(var t in cell.teams){
 					console.log(t, cell.ownership[t]);
 					console.log(cell.avail);
-					cell.avail -= (cell.teams[t] - cell.teams[cell.owner]) * C * cell.value;
+					var v = 0;
+					if(cell.teams.hasOwnProperty(cell.owner))
+						var v = cell.teams[cell.owner];
+					cell.avail -= (cell.teams[t] - v) * C * cell.value;
 					if(cell.avail < 0){
 						cell.ownership[t] += cell.avail;
 						cell.avail = 0;
@@ -93,7 +97,7 @@ Pontuation.updateCells = function(){
 					}
 					if(!cell.ownership.hasOwnProperty(t) )
 						cell.ownership[t] = 0;
-					cell.ownership[t] += (cell.teams[t] - cell.teams[cell.owner]) * C * cell.value;
+					cell.ownership[t] += (cell.teams[t] - v) * C * cell.value;
 				}
 				if(cell.avail == 0){
 					var m = 0, mi;

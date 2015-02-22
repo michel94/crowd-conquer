@@ -10,28 +10,34 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.crowdconquer.crowdconquer.services.Api;
+import com.crowdconquer.crowdconquer.data.StaticData;
 import com.crowdconquer.crowdconquer.services.BackgroundLocationService;
 
-public class ConquerActivity extends Activity {
-    private int progress = 0;
+import org.w3c.dom.Text;
 
-    //views
+public class ConquerActivity extends Activity {
+
+    private int progress = 0;
     private ProgressBar conquerProgressBar;
     private TextView conquerTextProgress;
-
+    private TextView latlongTextView;
+    private TextView usernameTextView;
+    private TextView ownerTextView;
+    private boolean isGPSEnabled;
+    private boolean isNetworkEnabled;
+    private boolean canIStart;
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        boolean isGPSEnabled;
-        boolean isNetworkEnabled;
-        boolean canIStart = true;
-
-        Context mContext = this;
+        canIStart = true;
+        mContext = this;
 
         LocationManager locationManager = (LocationManager) mContext
                 .getSystemService(LOCATION_SERVICE);
@@ -41,31 +47,21 @@ public class ConquerActivity extends Activity {
         isNetworkEnabled =locationManager
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (isNetworkEnabled == false || isGPSEnabled == false) {
-                showSettings(this);
-            }
-         else{
-                setContentView(R.layout.activity_conquer);
-                startLocationService();
-                initViews();
-                new Thread(updateProgressBar).start();
-
-                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
-                usernameTextView.setText(getAccountInfo());
-            }
+        if (isNetworkEnabled == false || isGPSEnabled == false) {
+            showSettings(this);
+        }
+        else{
+            initAllElements();
+        }
     }
 
 
     private void showSettings(final Context mContext) {
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
-        // Setting Dialog Title
         alertDialog.setTitle("GPS is settings");
-
-        // Setting Dialog Message
         alertDialog.setMessage("GPS or WIFI is not enabled. Do you want to go to settings menu?");
 
-        // On pressing Settings button
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -73,7 +69,6 @@ public class ConquerActivity extends Activity {
             }
         });
 
-        // on pressing cancel button
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -81,20 +76,11 @@ public class ConquerActivity extends Activity {
             }
         });
 
-        // Showing Alert Message
-        //alertDialog.show();
-
         AlertDialog alert = alertDialog.create();
         alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                setContentView(R.layout.activity_conquer);
-                startLocationService();
-                initViews();
-                new Thread(updateProgressBar).start();
-
-                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
-                usernameTextView.setText(getAccountInfo());
+                initAllElements();
             }
         });
         alert.show();
@@ -104,6 +90,22 @@ public class ConquerActivity extends Activity {
     private void initViews() {
         conquerProgressBar = (ProgressBar)findViewById(R.id.circularProgressbar);
         conquerTextProgress = (TextView)findViewById(R.id.conquerTextProgress);
+        usernameTextView = (TextView)findViewById(R.id.textViewEmail);
+        latlongTextView = (TextView)findViewById(R.id.textViewLatLong);
+        ownerTextView = (TextView)findViewById(R.id.textViewOwner);
+
+    }
+
+    private void initAllElements(){
+
+        setContentView(R.layout.activity_conquer);
+        startLocationService();
+        initViews();
+        new Thread(updateProgressBar).start();
+
+        usernameTextView.setText(getAccountInfo());
+        latlongTextView = (TextView)findViewById(R.id.textViewLatLong);
+
     }
 
     private void startLocationService() {
@@ -114,25 +116,45 @@ public class ConquerActivity extends Activity {
     private Runnable updateProgressBar = new Runnable() {
         @Override
         public void run() {
-            while (true) {
-                if (progress == 100) {
-                    break;
-                }
-                progress++;
-                runOnUiThread(refreshProgressBar);
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException ignored) { }
+        while (true) {
+            if (progress == 100) {
+                break;
             }
+            progress++;
+            runOnUiThread(refreshProgressBar);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ignored) { }
+        }
         }
     };
 
     private Runnable refreshProgressBar = new Runnable() {
         @Override
         public void run() {
-            conquerProgressBar.setProgress(progress);
-            conquerTextProgress.setText(progress + "%");
+        conquerProgressBar.setProgress(progress);
+        conquerTextProgress.setText(progress + "%");
+
+        if(StaticData.user.getLocation() != null) {
+            String textTimer = StaticData.user.getTimeToWin();
+            String textLatLong = "Lat: " + Double.toString(StaticData.user.getLocation().getLatitude()) + " Long:" + Double.toString(StaticData.user.getLocation().getLongitude());
+
+            latlongTextView.setText(textLatLong);
         }
+        if(StaticData.user.getTerritoryOwner() != null){
+            String textTileOwner = StaticData.user.getTerritoryOwner();
+            ownerTextView.setText("Actual Owner:\n" + textTileOwner);
+        }
+        else
+            ownerTextView.setText("Actual Owner:\nEMPTY");
+
+        if(StaticData.user.getTimeToWin() != null){
+            String textTimeToWin = StaticData.user.getTimeToWin();
+            Log.e("REKT JSON TIME", textTimeToWin);
+        }
+        else
+            Log.e("REKT JSON TIME", "TIME IS FUCKING RELATIVE, GET OVER IT");
+    }
     };
 
     private String getAccountInfo() {
