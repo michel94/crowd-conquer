@@ -4,7 +4,7 @@ Session.set("initialized", false);
 function drawCell(cell){
     var lat = cell.lat;
     var lon = cell.lon;
-
+    //console.log(cell);
     var coords = [
         new google.maps.LatLng(lat, lon),
         new google.maps.LatLng(lat, lon + 0.001),
@@ -15,7 +15,7 @@ function drawCell(cell){
 
     var pol = new google.maps.Polygon({
         paths: coords,
-        fillColor: '#FF0000',
+        fillColor: cell.owner.color,
         strokeWeight: 1,
         strokeColor:'#666666',
         fillOpacity: 0.4

@@ -82,10 +82,10 @@ Pontuation.updateCells = function(){
 			}*/
 		}
 	}
-	
+
 }
 
-			
+
 Meteor.setInterval(Pontuation.updateCells, 1000);
 
 User = function(data){
@@ -139,6 +139,7 @@ Cell = function(data){
 //console.log(Cells.find().fetch());
 
 tests = function(){
+	Cells.remove({});
 	Users.remove({});
 	var user = User(Database.getUser("a@m"));
 	var user = User(Database.getUser("b@m"));
