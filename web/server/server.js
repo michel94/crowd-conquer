@@ -19,6 +19,6 @@ Meteor.methods({
       	console.log("join Team");
     },
     leaveTeam: function (post) {
-        Users.update({email:Meteor.user().services.google.email}, {$set: {team:null}});
+        //Users.update({email:Meteor.user().services.google.email}, {$set: {team:null}});
     }
 });
