@@ -13,7 +13,7 @@ body {
 }
 
 #map-canvas img {
-    max-width: none;
+    max-width: none !important;
 }
 
 .main-panel {
@@ -25,6 +25,7 @@ body {
     display: none;
     padding: 20px;
     border-radius: 25px;
+    color: black;
 }
 
 #logo {
@@ -40,7 +41,7 @@ body {
     margin-top: 14px;
     z-index: 2;
     right: 70px;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.93);
     border: 1px solid #aaffffff;
     border-radius: 4px;
     padding-left: 10px;
@@ -92,4 +93,9 @@ body {
 
 .pointer {
     cursor: pointer;
+}
+
+.gm-style-iw {
+    color: black;
+    text-align: center;
 }
