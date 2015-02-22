@@ -23,16 +23,18 @@
                 <li class="sidebar-brand white bold" id="user-logo-sidebar">
                     Crowd Conquer
                 </li>
+                {{#if iHaveTeam}}
                 <li>
                     <a href="#" onclick="showLeave()">Leave team</a>
                 </li>
-                <!--TODO-->
-                <li>
-                    <a href="#" onclick="showJoin()">Join team</a>
-                </li>
+                {{else}}
                 <li>
                     <a href="#" onclick="showCreate()">Create team</a>
                 </li>
+                <li>
+                    <a href="#" onclick="showJoin()">Join team</a>
+                </li>
+                {{/if}}
                 <li>
                     <a href="#" onclick="showRanking()">Ranking</a>
                 </li>
@@ -56,12 +58,12 @@
         Leave
     </div>
 
-    <div id="join-panel" class="main-panel">
-        Join
-    </div>
-
     <div id="create-panel" class="main-panel">
         Create
+    </div>
+
+    <div id="join-panel" class="main-panel">
+        Join
     </div>
 
     <div id="ranking-panel" class="main-panel">
