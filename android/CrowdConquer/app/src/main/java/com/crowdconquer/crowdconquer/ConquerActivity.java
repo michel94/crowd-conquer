@@ -118,12 +118,12 @@ public class ConquerActivity extends Activity {
         public void run() {
         while (true) {
             if (progress == 100) {
-                break;
+                progress = 0;
             }
             progress++;
             runOnUiThread(refreshProgressBar);
             try {
-                Thread.sleep(50);
+                Thread.sleep(150);
             } catch (InterruptedException ignored) { }
         }
         }
@@ -143,10 +143,10 @@ public class ConquerActivity extends Activity {
         }
         if(StaticData.user.getTerritoryOwner() != null){
             String textTileOwner = StaticData.user.getTerritoryOwner();
-            ownerTextView.setText("Actual Owner:\n" + textTileOwner);
+            ownerTextView.setText("Actual Owner Team Number:\n" + textTileOwner);
         }
         else
-            ownerTextView.setText("Actual Owner:\nEMPTY");
+            ownerTextView.setText("Actual Owner Team Number:\nEMPTY");
 
         if(StaticData.user.getTimeToWin() != null){
             String textTimeToWin = StaticData.user.getTimeToWin();
