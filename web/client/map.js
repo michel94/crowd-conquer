@@ -96,6 +96,13 @@ Template.map.helpers({
                     drawCell(cell);
             });
         }
+    },
+
+    myTeam: function() {
+        var id = Users.findOne({email:Meteor.user().services.google.email}).team;
+        if (id)
+            return Teams.findOne({teamID:id}).name;
+        return "";
     }
 });
 
