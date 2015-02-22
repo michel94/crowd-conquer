@@ -74,7 +74,7 @@ Pontuation.updateCells = function(){
 					}
 					cell.owner = mi;
 					cell.ownership = {};
-					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+					Cells.update({_id: cell._id}, {$set: {owner: cell.owner} })
 					delete cell.avail;
 
 					console.log('New owner is team ' + cell.owner);
