@@ -47,8 +47,8 @@ Pontuation.updateCells = function(){
 	for(var row in p.cells){
 		for(var col in p.cells[row]){
 			var cell = p.cells[row][col];
+				console.log(cell.owner);
 			if(cell.owner == 0){
-				console.log('owner=0');
 				if(!cell.hasOwnProperty("avail"))
 					cell.avail = cell.value;
 				for(var t in cell.teams){
