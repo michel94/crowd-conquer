@@ -13,13 +13,32 @@ body {
 #logo {
     top: 0px;
     font-size: 30pt;
+    padding-top: 200px;
+}
+
+#loginAbsolute {
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    margin-top: 16px;
+    right: 70px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid #aaffffff;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+}
+
+#login-buttons-logout {
+    display: none !important;
 }
 
 .welcome-container {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.1);
     text-align: center;
 }
 

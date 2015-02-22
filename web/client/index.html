@@ -1,7 +1,18 @@
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Crowd Conquer</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+</head>
+
 <template name="welcome">
     <div class="welcome-container">
         <div id="logo">
-            Crowd Conquer
+            <p>Crowdconquer</p>
+        </div>
+        <div id="login">
+            {{> loginButtons}}
         </div>
     </div>
     <div id="map-canvas" class="background-map"></div>

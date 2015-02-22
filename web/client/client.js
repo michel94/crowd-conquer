@@ -1,9 +1,12 @@
-Router.route('/world', function () {
-  this.render('map', { });
-});
-
 Router.route('/', function () {
-  this.render('welcome', { });
+    if (Meteor.user() || Meteor.loggingIn()) {
+        Session.set("initialized", false);
+        this.render('map', { });
+    }
+    else {
+        Session.set("initialized", false);
+        this.render('welcome', { });
+    }
 });
 
 Tracker.autorun(function() {
