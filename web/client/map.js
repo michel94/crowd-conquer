@@ -197,8 +197,7 @@ Template.welcome.helpers({
 
 function showArrays(event) {
   var team = Users.findOne({email:Meteor.user().services.google.email}).team;
-  Users.findOne({team: team});
-  var cellTeam = Meteor.user().services.google.name;
+  var cellTeam = Users.findOne({team: team}).email;
 
   var vertices = this.getPath();
 
