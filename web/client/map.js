@@ -164,7 +164,7 @@ function showArrays(event) {
 
   var vertices = this.getPath();
 
-  var contentString = '<b>' + event.latLng.lat() + ', ' + event.latLng.lng() + '</b><br>' +
+  var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
                       '<b>Controlled by:</b> DreamTeam (69)<br><b>Level:</b> 92';
 
   infoWindow.setContent(contentString);
