@@ -16,7 +16,8 @@
         android:textColor="#ffffff"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Actual Owner \n Jesus Christ"/>
+        android:text="Actual Owner:
+Jesus Christ"/>
 
 
     <RelativeLayout

@@ -8,7 +8,6 @@ public class User {
     private String timeToWin;
     private String territoryOwner;
 
-
     public User(String email) {
         this.email = email;
     }

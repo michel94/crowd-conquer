@@ -6,7 +6,6 @@ import android.util.Log;
 import com.crowdconquer.crowdconquer.data.StaticData;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -81,7 +80,6 @@ public class Request {
                     result = inputStreamToString(inputStream);
 
                 }else result = "error";
-                Log.i("rekt", result);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -110,8 +108,7 @@ public class Request {
             argsObject.accumulate("args", jsonObject);
             String json = argsObject.toString();
             se = new StringEntity(json, "UTF-8");
-            Log.i("rekt3", json);
-        } catch (JSONException | UnsupportedEncodingException ignored) { Log.i("rekt2", ignored.getMessage()); }
+        } catch (JSONException | UnsupportedEncodingException ignored) { }
         return se;
     }
 
