@@ -23,27 +23,23 @@
                     Crowd Conquer
                 </li>
                 <li>
-                    <a href="#" onclick="leave()">Leave team</a>
+                    <a href="#" onclick="showLeave()">Leave team</a>
                 </li>
                 <!--TODO-->
                 <li>
-                    <a href="#">Join team</a>
+                    <a href="#" onclick="showJoin()">Join team</a>
                 </li>
                 <li>
-                    <a href="#">Create team</a>
+                    <a href="#" onclick="showCreate()">Create team</a>
                 </li>
                 <li>
-                    <a href="#">Ranking</a>
+                    <a href="#" onclick="showRanking()">Ranking</a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="#" onclick="showAbout()">About</a>
                 </li>
             </ul>
         </div>
-    </div>
-
-    <div id="main-panel">
-        REKT
     </div>
 
     <div id="login-absolute">
@@ -54,34 +50,66 @@
     <div id="map-canvas"></div>
     {{dummy}}
 
+    <div id="leave-panel" class="main-panel">
+        Leave
+    </div>
+
+    <div id="join-panel" class="main-panel">
+        Join
+    </div>
+
+    <div id="create-panel" class="main-panel">
+        Create
+    </div>
+
+    <div id="ranking-panel" class="main-panel">
+        Ranking
+    </div>
+
+    <div id="about-panel" class="main-panel">
+        About
+    </div>
+
     <script>
         $("#wrapper").removeClass("toggled");
         $("#login-absolute").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
+            resetMainPanel()
         });
         $("#map-canvas").click(function(e) {
             $("#wrapper").removeClass("toggled");
+            $(".main-panel").hide();
         });
 
         function showLeave() {
-
+            resetMainPanel();
+            $("#leave-panel").show();
         }
 
         function showJoin() {
-
+            resetMainPanel();
+            $("#join-panel").show();
         }
 
         function showCreate() {
-
+            resetMainPanel();
+            $("#create-panel").show();
         }
 
         function showRanking() {
-
+            resetMainPanel();
+            $("#ranking-panel").show();
         }
 
         function showAbout() {
-             
+            resetMainPanel();
+            $("#about-panel").show();
+        }
+
+        function resetMainPanel() {
+            $(".main-panel").hide();
+            $(".main-panel").css({height: $(window).height()/2, top: $(window).height()*0.25});
         }
     </script>
 

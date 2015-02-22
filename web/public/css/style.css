@@ -16,15 +16,15 @@ body {
     max-width: none;
 }
 
-#main-panel {
+.main-panel {
     position: absolute;
-    padding-left: 250px;
-    height: 200px;
-    width: 100%;
-    height: 100%;
+    left: 320px;
+    right: 140px;
     z-index: 2;
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.92);
     display: none;
+    padding: 20px;
+    border-radius: 25px;
 }
 
 #logo {
@@ -38,7 +38,7 @@ body {
     position: absolute;
     top: 0px;
     margin-top: 14px;
-    z-index: 1;
+    z-index: 2;
     right: 70px;
     background: rgba(255,255,255,0.7);
     border: 1px solid #aaffffff;
