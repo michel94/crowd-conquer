@@ -37,7 +37,7 @@ Pontuation.updateUsers = function(){
 Meteor.setInterval(Pontuation.updateUsers, 1000);
 
 /*Meteor.setInterval(function(){
-	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
+	Pontuation.cell(-8.415008, 40.18662).userKeepAlive("a@m");
 }, 10000);*/
 
 Pontuation.updateCells = function(){
@@ -74,30 +74,37 @@ Pontuation.updateCells = function(){
 					}
 					cell.owner = mi;
 					cell.ownership = {};
-					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+					Cells.update({_id: cell._id}, {$set: {owner: cell.owner} })
 					delete cell.avail;
+					cell.value *= 2;
 
-					console.log('New owner is team ' + cell.owner);
+					console.log('conquered by team ' + cell.owner);
 				}
 			}else{
 				console.log(cell.teams);
 				if(!cell.hasOwnProperty("avail"))
 					cell.avail = cell.value;
 				for(var t in cell.teams){
-					console.log(t, cell.ownership[t]);
-					console.log(cell.avail);
-					var v = 0;
-					if(cell.teams.hasOwnProperty(cell.owner))
-						var v = cell.teams[cell.owner];
-					cell.avail -= (cell.teams[t] - v) * C * cell.value;
-					if(cell.avail < 0){
-						cell.ownership[t] += cell.avail;
-						cell.avail = 0;
-						break;
+					if(cell.teams[t] > 0){
+						console.log(t, cell.ownership[t]);
+						console.log(cell.avail);
+						console.log('owner ' + cell.owner)
+						var v = 0;
+						if(cell.teams.hasOwnProperty(cell.owner))
+							var v = cell.teams[cell.owner];
+						cell.avail -= (cell.teams[t] - v) * C * cell.value;
+						if(cell.avail < 0){
+							cell.ownership[t] += cell.avail;
+							cell.avail = 0;
+							break;
+						}
+						if(!cell.ownership.hasOwnProperty(t) )
+							cell.ownership[t] = 0;
+						cell.ownership[t] += (cell.teams[t] - v) * C * cell.value;
+					}else{
+						if(!cell.ownership.hasOwnProperty(t) )
+							cell.ownership[t] = 0;
 					}
-					if(!cell.ownership.hasOwnProperty(t) )
-						cell.ownership[t] = 0;
-					cell.ownership[t] += (cell.teams[t] - v) * C * cell.value;
 				}
 				if(cell.avail == 0){
 					var m = 0, mi;
@@ -108,7 +115,10 @@ Pontuation.updateCells = function(){
 						}
 					}
 					cell.owner = mi;
+					cell.ownership = {};
 					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+					delete cell.avail;
+					cell.value *= 2;
 
 					console.log('New owner is team ' + cell.owner);
 				}
@@ -181,15 +191,10 @@ tests = function(){
 	var user = User(Database.getUser("e@m"));
 
 	Cells.remove({});
-	Pontuation.cell(-8.4158, 40.1862);
-	Pontuation.cell(-8.4168, 40.1862);
-	Pontuation.cell(-8.4158, 40.1832);
+	var cell = Pontuation.cell(-8.415008, 40.18662);
+	Cells.update({_id: cell._id}, {$set:{owner: 3} });
+	cell.owner = 3;
+	Pontuation.cell(-8.415008, 40.18662).userKeepAlive("e@m");
 
-
-	//console.log(Pontuation.cell(35.62, 46.34).users);
-	//console.log(Pontuation.cell(35.62, 46.339999999).users);
-	//console.log(Pontuation.cell(35.62, 46.3399998).users);
-
-	//console.log(Cells.find().fetch());
 
 }
