@@ -27,13 +27,13 @@ Router.route('/api/location', {where: 'server'})
 
     var cell = Pontuation.cell(json.lon, json.lat)
     cell.userKeepAlive(json.email);
+	this.response.writeHead(200, {'Content-Type': 'application/json'});
 
-		this.response.writeHead(200, {'Content-Type': 'application/json'});
-    console.log("ratio: " + (cell.value-cell.avail)/cell.value);
+    var ratio = (cell.value-cell.avail)/cell.value
     this.response.end(JSON.stringify({
             owner: parseInt(cell.owner),
             team: Users.findOne({email: json.email}).team,
-            ratio: (cell.value-cell.avail)/cell.value
+            ratio: Math.round(ratio * 1000) / 1000 //3 casas decimais
         }));
 	});
 
