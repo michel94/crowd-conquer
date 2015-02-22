@@ -152,11 +152,11 @@ public class ConquerActivity extends Activity {
 
             Owner = textTileOwner.substring(9,10);
             Team = textTileOwner.substring(18,19);
-            Ratio = textTileOwner.substring(28,33);
+            //Ratio = textTileOwner.substring(28,33);
             textTileOwner = Owner;
-            Log.e("PUSH OWNER",textTileOwner);
-            Log.e("PUSH TEAM",Team);
-            Log.e("PUSH RATIO", Ratio);
+            //Log.e("PUSH OWNER",textTileOwner);
+            //Log.e("PUSH TEAM",Team);
+            //Log.e("PUSH RATIO", Ratio);
 
             ownerTextView.setText("Actual Owner Team Number:\n" + textTileOwner);
             usernameTextView.setText(getAccountInfo() + Team);
