@@ -3,9 +3,9 @@ Meteor.startup(function(){
 });
 
 Meteor.methods({
-    /*login: function (email){
+    myLogin: function (email){
         Database.getUser(email);
-    },*/
+    },
     createTeam: function (post) {
       console.log("create Team");
       var id = Teams.find().fetch().length+1;
@@ -19,4 +19,4 @@ Meteor.methods({
     leaveTeam: function (post) {
       console.log("leave Team");
     }
-})
+});
