@@ -1,10 +1,8 @@
 Router.route('/', function () {
     if (Meteor.user() || Meteor.loggingIn()) {
-        Session.set("initialized", false);
         this.render('map', { });
     }
     else {
-        Session.set("initialized", false);
         this.render('welcome', { });
     }
 });
