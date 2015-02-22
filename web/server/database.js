@@ -6,7 +6,7 @@ Database = {
 
 		var cell = Cells.findOne({lon: lon, lat:lat});
 		if(!cell){
-			Cells.insert({lon: lon, lat:lat, value: 100});
+			Cells.insert({lon: lon, lat:lat, value: 100, owner: 0});
 			cell = Cells.findOne({lon: lon, lat:lat});
 		}
 		return cell;
