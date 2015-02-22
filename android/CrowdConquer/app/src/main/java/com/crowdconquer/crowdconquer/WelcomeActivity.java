@@ -39,6 +39,7 @@ public class WelcomeActivity extends Activity {
         textInfo = (TextView)findViewById(R.id.textInfo);
         welcomeInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
         textInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
+        buttonGotIt.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
     }
 
     private void startListeners() {
