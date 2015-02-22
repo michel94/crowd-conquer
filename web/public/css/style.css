@@ -16,18 +16,23 @@ body {
     padding-top: 200px;
 }
 
-#loginAbsolute {
+#login-absolute {
     position: absolute;
     top: 0px;
+    margin-top: 14px;
     z-index: 10;
-    margin-top: 16px;
     right: 70px;
     background: rgba(255,255,255,0.7);
     border: 1px solid #aaffffff;
     border-radius: 4px;
     padding-left: 10px;
     padding-right: 10px;
+    line-height: 28px;
     color: black;
+}
+
+#login-buttons {
+    cursor: pointer;
 }
 
 #login-buttons-logout {
@@ -53,4 +58,16 @@ body {
     -o-filter: blur(2px);
     -ms-filter: blur(2px);
     filter: blur(2px);
+}
+
+.white {
+    color: #ffffff;
+}
+
+.bold {
+    font-style: bold;
+}
+
+.pointer {
+    cursor: pointer;
 }
