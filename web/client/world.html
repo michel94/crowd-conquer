@@ -1,3 +1,14 @@
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Crowd Conquer</title>
+    <link type="text/css" type="text/css" href="css/style.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link type="text/css" href="css/simple-sidebar.css" rel="stylesheet">
+</head>
+
 <template name="das">
     {{#each d}}
         {{email}}
@@ -5,9 +16,54 @@
 </template>
 
 <template name="map">
-    <div id="loginAbsolute">
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand white bold" id="user-logo-sidebar">
+                    Crowd Conquer
+                </li>
+                <li>
+                    <a href="#">Leave team</a>
+                </li>
+                <!--TODO-->
+                <li>
+                    <a href="#">Join team</a>
+                </li>
+                <li>
+                    <a href="#">Create team</a>
+                </li>
+                <li>
+                    <a href="#">Ranking</a>
+                </li>
+                <li>
+                    <a href="#">Settings</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="login-absolute">
+        <span class="icon-tasks pointer"></span>
         {{> loginButtons}}
     </div>
+
     <div id="map-canvas"></div>
     {{dummy}}
+
+    <script>
+        $("#wrapper").removeClass("toggled");
+        $("#login-absolute").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        $("#map-canvas").click(function(e) {
+            $("#wrapper").removeClass("toggled");
+        });
+    </script>
+
+    <script src="js/bootstrap.min.js"></script>
+
 </template>

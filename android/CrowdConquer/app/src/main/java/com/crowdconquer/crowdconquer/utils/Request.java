@@ -102,10 +102,10 @@ public class Request {
         try {
             JSONObject argsObject = new JSONObject();
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("email", "amccbaptista@gmail.com");//StaticData.user.getEmail());
+            jsonObject.accumulate("email", StaticData.user.getEmail());
             //TODO...
-            jsonObject.accumulate("lat", 40.186638);//StaticData.user.getLocation().getLatitude());
-            jsonObject.accumulate("lon", -8.415508);//StaticData.user.getLocation().getLongitude());
+            jsonObject.accumulate("lat", StaticData.user.getLocation().getLatitude());
+            jsonObject.accumulate("lon", StaticData.user.getLocation().getLongitude());
             argsObject.accumulate("args", jsonObject);
             String json = argsObject.toString();
             se = new StringEntity(json, "UTF-8");

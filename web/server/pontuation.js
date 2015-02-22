@@ -22,11 +22,9 @@ Pontuation.updateUsers = function(){
 		for(var col in p.cells[row]){
 			var users = p.cells[row][col].users;
 			for(var email in users){
-				console.log(email);
-				var user = users[email];
+					var user = users[email];
 				if(user){
 					user.time--;
-					console.log('time ' + user.time);
 					if(user.time <= 0){
 						p.cells[row][col].teams[user.team]--;
 						delete users[email];
@@ -38,20 +36,56 @@ Pontuation.updateUsers = function(){
 }
 Meteor.setInterval(Pontuation.updateUsers, 1000);
 
-/*Meteor.setInterval(function(){
+Meteor.setInterval(function(){
 	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
-}, 10000);*/
-
+}, 10000);
 
 Pontuation.updateCells = function(){
 	var p = Pontuation;
+	var C=0.1;
+
 	for(var row in p.cells){
 		for(var col in p.cells[row]){
 			var cell = p.cells[row][col];
-			
+			if(cell.owner == 0){
+				if(!cell.hasOwnProperty("avail"))
+					cell.avail = cell.value;
+				for(var t in cell.teams){
+					console.log(t, cell.ownership[t]);
+					console.log(cell.avail);
+					cell.avail -= cell.teams[t] * C * cell.value;
+					if(cell.avail < 0){
+						cell.ownership[t] += cell.avail;
+						cell.avail = 0;
+						break;
+					}
+					if(!cell.ownership.hasOwnProperty(t) )
+						cell.ownership[t] = 0;
+					cell.ownership[t] += cell.teams[t] * C * cell.value;
+				}
+				if(cell.avail == 0){
+					var m = 0, mi;
+					for(var t in cell.ownership){
+						if(cell.ownership[t] > m){
+							m = cell.ownership[t];
+							mi = t;
+						}
+					}
+					cell.owner = mi;
+					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+
+					console.log('New owner is team ' + cell.owner);
+				}
+			}
+			/*for(var t in cell.teams){
+				if(t != owner)
+			}*/
 		}
 	}
+	
 }
+
+			
 Meteor.setInterval(Pontuation.updateCells, 1000);
 
 User = function(data){
@@ -65,13 +99,15 @@ User = function(data){
 
 Cell = function(data){
 	var cell = {};
+	cell._id = data._id;
+	console.log(cell._id)
 	cell.value = data.value;
+	cell.owner = data.owner;
 	cell.lon = data.lon;
 	cell.lat = data.lat;
 	cell.users = {}; // current users: maps email to User
 	cell.teams = {}; // number of elements of each team in this cell
 	cell.ownership = {}; // empty ownership means that no one owns the cell
-	cell.value = 100;
 	cell.userKeepAlive = function(email){
 		var user = this.users[email];
 		if(user){
