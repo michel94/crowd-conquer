@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class WelcomeActivity extends Activity {
     //views
     SignInButton buttonGotIt;
     TextView textInfo;
+    TextView welcomeInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,10 @@ public class WelcomeActivity extends Activity {
 
     private void initViews() {
         buttonGotIt = (SignInButton)findViewById(R.id.btngotit);
+        welcomeInfo = (TextView)findViewById(R.id.welcomeView);
         textInfo = (TextView)findViewById(R.id.textInfo);
+        welcomeInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
+        textInfo.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this,android.R.anim.slide_in_left));
     }
 
     private void startListeners() {

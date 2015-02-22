@@ -21,6 +21,7 @@
             android:text="@string/welcome"
             android:layout_width="wrap_content"
             android:textColor="#ffffff"
+            android:id = "@+id/welcomeView"
             android:layout_marginBottom="40dp"/>
 
         <TextView
