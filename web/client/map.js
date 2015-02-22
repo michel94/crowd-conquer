@@ -163,5 +163,29 @@ Template.welcome.helpers({
         //drawCell(40.187, -8.416, map);
         //drawCell(40.186, -8.417);
     }
+<<<<<<< HEAD
+=======
+}
+
+Template.map.rendered = function(){
+    Session.set("initialized", true);
+}
+
+Template.map.helpers({
+    dummy: function(){
+        rekt
+        initMap();
+
+    }
+});
+
+Template.welcome.rendered = function(){
+    Session.set("initialized", true);
+}
+
+Template.welcome.helpers({
+    dummy: function(){
+        initMap();
+>>>>>>> 94f755fe27f18ea324391c749a6facb1dd0b9900
     }
 });
