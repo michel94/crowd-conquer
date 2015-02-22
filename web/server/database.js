@@ -15,6 +15,8 @@ Database = {
 		var user = Users.findOne({email: email});
 		if(!user){
 			Users.insert({email: email, team: maxTeamId('team')+1} );
+			var user = Users.findOne({email: email});
+			Teams.insert({teamID: user.team, name: 'Solo'})
 		}
 		return Users.findOne({email: email});
 	}
