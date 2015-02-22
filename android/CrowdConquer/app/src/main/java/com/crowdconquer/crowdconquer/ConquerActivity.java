@@ -50,7 +50,7 @@ public class ConquerActivity extends Activity {
                 initViews();
                 new Thread(updateProgressBar).start();
 
-                TextView usernameTextView = (TextView)findViewById(R.id.textView);
+                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
                 usernameTextView.setText(getAccountInfo());
             }
     }
@@ -93,7 +93,7 @@ public class ConquerActivity extends Activity {
                 initViews();
                 new Thread(updateProgressBar).start();
 
-                TextView usernameTextView = (TextView)findViewById(R.id.textView);
+                TextView usernameTextView = (TextView)findViewById(R.id.textViewEmail);
                 usernameTextView.setText(getAccountInfo());
             }
         });
@@ -148,7 +148,7 @@ public class ConquerActivity extends Activity {
             else currentAccount = null;
         }
         String[] splits =currentAccount.split("@");
-        currentAccount = splits[0];
+        currentAccount = splits[0]  + " : BlueTeam";
         return currentAccount;
     }
 }

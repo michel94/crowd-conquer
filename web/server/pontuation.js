@@ -15,7 +15,6 @@ Pontuation.cell = function(lon, lat){
 	return this.cells[lon][lat];
 }
 
-//Meteor.setInterval(Pontuation.updateCells, 1000);
 
 Pontuation.updateUsers = function(){
 	var p = Pontuation;
@@ -37,26 +36,23 @@ Pontuation.updateUsers = function(){
 		}
 	}
 }
-
 Meteor.setInterval(Pontuation.updateUsers, 1000);
+
 /*Meteor.setInterval(function(){
 	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
 }, 10000);*/
 
-/*
+
 Pontuation.updateCells = function(){
-	for(var i=0; i<this.cells.length; ){
-		var cell = Cell(this.cells[i]);
-
-		var dec = 5.0, total = 0;
-		for(var t=0; t<this.cells[i].users.length; t++){
-			total++;
+	var p = Pontuation;
+	for(var row in p.cells){
+		for(var col in p.cells[row]){
+			var cell = p.cells[row][col];
+			
 		}
-
-
 	}
 }
-*/
+Meteor.setInterval(Pontuation.updateCells, 1000);
 
 User = function(data){
 	var user = {};
@@ -107,6 +103,7 @@ Cell = function(data){
 //console.log(Cells.find().fetch());
 
 tests = function(){
+	Users.remove({});
 	var user = User(Database.getUser("a@m"));
 	var user = User(Database.getUser("b@m"));
 	var user = User(Database.getUser("a@m"));
