@@ -1,5 +1,6 @@
 var map;
 Session.set("initialized", false);
+Session.set("initializedBlur", false);
 var colors = {};
 var cellTeam;
 var cellTeamID;
@@ -134,13 +135,13 @@ Template.map.events = {
     }
 }
 
-/*Template.welcome.rendered = function(){
-    Session.set("initialized", true);
+Template.welcome.rendered = function(){
+    Session.set("initializedBlur", true);
 }
 
 Template.welcome.helpers({
     dummy: function(){
-        if(Session.get("initialized")){
+        if(Session.get("initializedBlur")){
         var mapOptions = {
             zoom: 15,
             center: new google.maps.LatLng(40.186, -8.416),
@@ -148,7 +149,7 @@ Template.welcome.helpers({
             backgroundColor: "#141414"
         };
 
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        mapBlur = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         var styles = [{
             "stylers": [
@@ -185,7 +186,7 @@ Template.welcome.helpers({
                 ]
               }];
 
-        map.setOptions({styles: styles});
+        mapBlur.setOptions({styles: styles});
 
         var cells = Cells.find();
         cells.forEach(function(cell){
@@ -193,7 +194,7 @@ Template.welcome.helpers({
         });
         }
     }
-});*/
+});
 
 function showArrays(event) {
 
