@@ -196,13 +196,13 @@ Template.welcome.helpers({
 });*/
 
 function showArrays(event) {
-  var team = Users.findOne({email:Meteor.user().services.google.email}).team;
-  var cellTeam = Users.findOne({team: team}).email;
+  var team = Cells.findOne({lat: event.latLng.lat().toFixed(6), lon: event.latLng.lng().toFixed(6) }).owner;
+  var email = Users.findOne({team: team}).email;
 
   var vertices = this.getPath();
 
   var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
-                      '<b>Controlled by: </b>' + cellTeam;
+                      '<b>Controlled by: </b>' + email;
 
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
