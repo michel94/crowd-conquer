@@ -90,7 +90,9 @@ Template.map.rendered = function(){
 
 Template.map.helpers({
     dummy: function(){
+        rekt
         initMap();
+
     }
 });
 
