@@ -14,7 +14,7 @@ Database = {
 	getUser: function(email){
 		var user = Users.findOne({email: email});
 		if(!user){
-			Users.insert({email: email, team: maxTeamId('team')+1, color: "FF0000"} );
+			Users.insert({email: email, team: maxTeamId('team')+1, color: "#FF0000"} );
 		}
 		return Users.findOne({email: email});
 	}

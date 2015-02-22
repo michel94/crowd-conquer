@@ -4,7 +4,8 @@ Session.set("initialized", false);
 function drawCell(cell){
     var lat = cell.lat;
     var lon = cell.lon;
-    //console.log(cell);
+
+
     var coords = [
         new google.maps.LatLng(lat, lon),
         new google.maps.LatLng(lat, lon + 0.001),
@@ -15,7 +16,7 @@ function drawCell(cell){
 
     var pol = new google.maps.Polygon({
         paths: coords,
-        fillColor: cell.owner.color,
+        fillColor: Users.findOne({team: cell.owner}).color,
         strokeWeight: 1,
         strokeColor:'#666666',
         fillOpacity: 0.4
@@ -34,8 +35,6 @@ Template.map.rendered = function(){
 
 Template.map.helpers({
     dummy: function(){
-        console.log(Cells.find().fetch());
-
         if(Session.get("initialized")){
             var mapOptions = {
                 zoom: 15,
@@ -87,8 +86,8 @@ Template.map.helpers({
 
             var cells = Cells.find();
             cells.forEach(function(cell){
-                console.log("cell");
-                drawCell(cell);
+                if(cell.owner > 0)
+                    drawCell(cell);
             });
             //drawCell({lat: 40.186, lon: -8.416}, map);
             //drawCell(40.187, -8.416, map);
