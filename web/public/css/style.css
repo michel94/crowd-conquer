@@ -10,10 +10,10 @@ body {
     background: black;
     padding-left: 0px !important;
     padding-right: 0px !important;
-}v
+}
 
 #map-canvas img {
-    max-width: none;
+    max-width: none !important;
 }
 
 .main-panel {
