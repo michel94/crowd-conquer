@@ -76,6 +76,7 @@ function initMap() {
 
         var cells = Cells.find();
         cells.forEach(function(cell){
+            console.log("cell");
             drawCell(cell);
         });
         //drawCell({lat: 40.186, lon: -8.416}, map);

@@ -22,7 +22,8 @@ Router.route('/api/location', {where: 'server'})
 			return;
 		}
 
-    console.log(json.lat, json.lon);
+    console.log(json.lon, json.lat, json.email);
+    Pontuation.cell(json.lon, json.lat).userKeepAlive(json.email);
 
 		this.response.writeHead(200, {'Content-Type': 'application/json'});
     this.response.end(JSON.stringify({'time': 60}));
