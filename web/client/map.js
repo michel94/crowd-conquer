@@ -81,7 +81,7 @@ Template.map.helpers({
 
             var cells = Cells.find();
             cells.forEach(function(cell){
-                if(cell.owner > 0)
+                //if(cell.owner > 0)
                     drawCell(cell);
             });
         }
