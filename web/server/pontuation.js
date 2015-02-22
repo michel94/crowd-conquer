@@ -42,7 +42,7 @@ Meteor.setInterval(Pontuation.updateUsers, 1000);
 
 Pontuation.updateCells = function(){
 	var p = Pontuation;
-	var C=0.1;
+	var C=5;
 
 	for(var row in p.cells){
 		for(var col in p.cells[row]){
@@ -54,7 +54,7 @@ Pontuation.updateCells = function(){
 				for(var t in cell.teams){
 					console.log(t, cell.ownership[t]);
 					console.log(cell.avail);
-					cell.avail -= cell.teams[t] * C * cell.value;
+					cell.avail -= cell.teams[t] * C;
 					if(cell.avail < 0){
 						cell.ownership[t] += cell.avail;
 						cell.avail = 0;
@@ -62,7 +62,7 @@ Pontuation.updateCells = function(){
 					}
 					if(!cell.ownership.hasOwnProperty(t) )
 						cell.ownership[t] = 0;
-					cell.ownership[t] += cell.teams[t] * C * cell.value;
+					cell.ownership[t] += cell.teams[t] * C;
 				}
 				if(cell.avail == 0){
 					var m = 0, mi;
@@ -92,7 +92,7 @@ Pontuation.updateCells = function(){
 						var v = 0;
 						if(cell.teams.hasOwnProperty(cell.owner))
 							var v = cell.teams[cell.owner];
-						cell.avail -= (cell.teams[t] - v) * C * cell.value;
+						cell.avail -= (cell.teams[t] - v) * C;
 						if(cell.avail < 0){
 							cell.ownership[t] += cell.avail;
 							cell.avail = 0;
@@ -100,7 +100,7 @@ Pontuation.updateCells = function(){
 						}
 						if(!cell.ownership.hasOwnProperty(t) )
 							cell.ownership[t] = 0;
-						cell.ownership[t] += (cell.teams[t] - v) * C * cell.value;
+						cell.ownership[t] += (cell.teams[t] - v) * C;
 					}else{
 						if(!cell.ownership.hasOwnProperty(t) )
 							cell.ownership[t] = 0;

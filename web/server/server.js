@@ -3,6 +3,9 @@ Meteor.startup(function(){
 });
 
 Meteor.methods({
+    /*login: function (email){
+        Database.getUser(email);
+    },*/
     createTeam: function (post) {
       console.log("create Team");
       var id = Teams.find().fetch().length+1;
