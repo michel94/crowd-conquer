@@ -25,6 +25,15 @@
         android:gravity="center"
 
         >
+        <ImageView
+            android:layout_width="161dp"
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="42dp"
+            android:layout_height="161dp"
+            android:scaleType="fitXY"
+
+            android:gravity = "center_vertical|center_horizontal"
+            android:background="@drawable/roundmap"/>
 
         <ProgressBar
             android:id="@+id/circularProgressbar"
@@ -34,7 +43,6 @@
             android:indeterminate="false"
             android:progress="0"
             android:max="100"
-            android:background="@drawable/roundmap"
             android:secondaryProgress="100"
             android:progressTint="#ffffff"
             android:progressDrawable="@drawable/circular" />
@@ -48,6 +56,7 @@
             android:textColor="#ffffff"
             android:gravity="center_vertical|center_horizontal"
             android:id="@+id/conquerTextProgress"/>
+
 
     </RelativeLayout>
 
