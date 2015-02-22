@@ -21,7 +21,7 @@ public class BackgroundLocationService extends Service implements
         GooglePlayServicesClient.OnConnectionFailedListener,
         LocationListener {
 
-    public static final long UPDATE_INTERVAL = 1000;
+    public static final long UPDATE_INTERVAL = 10000;
 
     private LocationClient mLocationClient;
     private LocationRequest mLocationRequest;
