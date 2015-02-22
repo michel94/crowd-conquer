@@ -23,6 +23,7 @@ Router.route('/api/location', {where: 'server'})
 		}
 
     console.log(json.lon, json.lat, json.email);
+    Database.getUser(json.email);
     Pontuation.cell(json.lon, json.lat).userKeepAlive(json.email);
 
 		this.response.writeHead(200, {'Content-Type': 'application/json'});

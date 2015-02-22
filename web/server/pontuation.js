@@ -36,9 +36,9 @@ Pontuation.updateUsers = function(){
 }
 Meteor.setInterval(Pontuation.updateUsers, 1000);
 
-Meteor.setInterval(function(){
+/*Meteor.setInterval(function(){
 	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
-}, 10000);
+}, 10000);*/
 
 Pontuation.updateCells = function(){
 	var p = Pontuation;
@@ -48,6 +48,7 @@ Pontuation.updateCells = function(){
 		for(var col in p.cells[row]){
 			var cell = p.cells[row][col];
 			if(cell.owner == 0){
+				console.log('owner=0');
 				if(!cell.hasOwnProperty("avail"))
 					cell.avail = cell.value;
 				for(var t in cell.teams){
@@ -62,6 +63,37 @@ Pontuation.updateCells = function(){
 					if(!cell.ownership.hasOwnProperty(t) )
 						cell.ownership[t] = 0;
 					cell.ownership[t] += cell.teams[t] * C * cell.value;
+				}
+				if(cell.avail == 0){
+					var m = 0, mi;
+					for(var t in cell.ownership){
+						if(cell.ownership[t] > m){
+							m = cell.ownership[t];
+							mi = t;
+						}
+					}
+					cell.owner = mi;
+					cell.ownership = {};
+					Cells.update({_id: cell._id}, {$set:{owner: cell.owner} })
+
+					console.log('New owner is team ' + cell.owner);
+				}
+			}else{
+				console.log('owner>0');
+				if(!cell.hasOwnProperty("avail"))
+					cell.avail = cell.value;
+				for(var t in cell.teams){
+					console.log(t, cell.ownership[t]);
+					console.log(cell.avail);
+					cell.avail -= (cell.teams[t] - cell.teams[cell.owner]) * C * cell.value;
+					if(cell.avail < 0){
+						cell.ownership[t] += cell.avail;
+						cell.avail = 0;
+						break;
+					}
+					if(!cell.ownership.hasOwnProperty(t) )
+						cell.ownership[t] = 0;
+					cell.ownership[t] += (cell.teams[t] - cell.teams[cell.owner]) * C * cell.value;
 				}
 				if(cell.avail == 0){
 					var m = 0, mi;
@@ -100,7 +132,6 @@ User = function(data){
 Cell = function(data){
 	var cell = {};
 	cell._id = data._id;
-	console.log(cell._id)
 	cell.value = data.value;
 	cell.owner = data.owner;
 	cell.lon = data.lon;
@@ -146,16 +177,9 @@ tests = function(){
 	var user = User(Database.getUser("a@m"));
 	var user = User(Database.getUser("e@m"));
 
-	Pontuation.cell(-8.416, 40.186);
-	Pontuation.cell(-8.416, 40.187);
-	Pontuation.cell(-8.416, 40.185);
-	Pontuation.cell(-8.416, 40.184);
-	Pontuation.cell(-8.416, 40.180);
-	Pontuation.cell(-8.413, 40.186);
-	Pontuation.cell(-8.411, 40.189);
-	Pontuation.cell(-8.4183232, 40.1883123);
+	Cells.remove({});
+	Pontuation.cell(-8.4158, 40.1862);
 
-	Pontuation.cell(-8.416, 40.185).userKeepAlive("a@m");
 
 	//console.log(Pontuation.cell(35.62, 46.34).users);
 	//console.log(Pontuation.cell(35.62, 46.339999999).users);
