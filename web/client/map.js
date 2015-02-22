@@ -1,23 +1,28 @@
 var map;
 Session.set("initialized", false);
+var colors = {};
 
 function drawCell(cell){
     var lat = cell.lat;
     var lon = cell.lon;
 
-    console.log("a");
-
     var coords = [
         new google.maps.LatLng(lat, lon),
         new google.maps.LatLng(lat, lon + 0.001),
-        new google.maps.LatLng(lat + 0.001, lon + 0.001),
-        new google.maps.LatLng(lat + 0.001, lon),
+        new google.maps.LatLng(lat - 0.001, lon + 0.001),
+        new google.maps.LatLng(lat - 0.001, lon),
         new google.maps.LatLng(lat, lon),
     ];
 
+    var color = colors[cell.owner];
+    if(color == null)
+        color = colors[cell.owner] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+
+    console.log(color);
+
     var pol = new google.maps.Polygon({
         paths: coords,
-        fillColor: '#FF0000', //User.findOne({team: 1}).color,
+        fillColor: color,
         strokeWeight: 1,
         strokeColor:'#666666',
         fillOpacity: 0.4
@@ -79,9 +84,11 @@ Template.map.helpers({
 
             map.setOptions({styles: styles});
 
+            console.log("o");
+
             var cells = Cells.find();
             cells.forEach(function(cell){
-                //if(cell.owner > 0)
+                if(cell.owner > 0)
                     drawCell(cell);
             });
         }

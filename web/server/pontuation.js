@@ -185,6 +185,9 @@ tests = function(){
 	Pontuation.cell(-8.4168, 40.1862);
 	Pontuation.cell(-8.4158, 40.1832);
 
+	Users.find({}).forEach(function(v){
+		console.log("-----" + v.team)
+	});
 
 	//console.log(Pontuation.cell(35.62, 46.34).users);
 	//console.log(Pontuation.cell(35.62, 46.339999999).users);
