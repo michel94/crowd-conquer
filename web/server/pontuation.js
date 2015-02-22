@@ -178,6 +178,8 @@ tests = function(){
 
 	Cells.remove({});
 	Pontuation.cell(-8.4158, 40.1862);
+	Pontuation.cell(-8.4168, 40.1862);
+	Pontuation.cell(-8.4158, 40.1832);
 
 
 	//console.log(Pontuation.cell(35.62, 46.34).users);
