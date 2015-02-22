@@ -111,6 +111,14 @@ Template.map.helpers({
         if (id)
             return Teams.findOne({teamID:id}).name;
         return "";
+    },
+
+    iHaveTeam: function() {
+        if (!Meteor.user()) return false;
+        var id = Users.findOne({email:Meteor.user().services.google.email}).team;
+        console.log(id);
+        if (id) return true;
+        return false;
     }
 });
 
