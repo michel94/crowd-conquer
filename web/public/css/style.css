@@ -10,7 +10,7 @@ body {
     background: black;
     padding-left: 0px !important;
     padding-right: 0px !important;
-}
+}v
 
 #map-canvas img {
     max-width: none;
@@ -92,4 +92,9 @@ body {
 
 .pointer {
     cursor: pointer;
+}
+
+.gm-style-iw {
+    color: black;
+    text-align: center;
 }

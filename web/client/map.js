@@ -23,13 +23,16 @@ function drawCell(cell){
         fillOpacity: 0.4
     });
 
-    google.maps.event.addListener(pol,"mouseover",function(){
+    google.maps.event.addListener(pol,"mouseover", function(){
         this.setOptions({fillColor: "#08c"});
     });
 
-    google.maps.event.addListener(pol,"mouseout",function(){
+    google.maps.event.addListener(pol,"mouseout", function(){
         this.setOptions({fillColor: "#FF0000"});
     });
+
+    google.maps.event.addListener(pol, 'click', showArrays);
+    infoWindow = new google.maps.InfoWindow();
 
     pol.setMap(map);
 }
@@ -156,3 +159,16 @@ Template.welcome.helpers({
         }
     }
 });*/
+
+function showArrays(event) {
+
+  var vertices = this.getPath();
+
+  var contentString = '<b>' + event.latLng.lat() + ', ' + event.latLng.lng() + '</b><br>' +
+                      '<b>Controlled by:</b> DreamTeam (69)<br><b>Level:</b> 92';
+
+  infoWindow.setContent(contentString);
+  infoWindow.setPosition(event.latLng);
+
+  infoWindow.open(map);
+}
