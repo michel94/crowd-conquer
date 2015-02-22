@@ -75,7 +75,7 @@
         $("#login-absolute").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-            resetMainPanel()
+            resetMainPanel();
         });
         $("#map-canvas").click(function(e) {
             $("#wrapper").removeClass("toggled");
@@ -111,6 +111,15 @@
             $(".main-panel").hide();
             $(".main-panel").css({height: $(window).height()/2, top: $(window).height()*0.25});
         }
+
+        $("#map-canvas").mousemove(function(event) {
+            if (!$("#wrapper").hasClass("toggled")) {
+                if (event.pageX == 0) {
+                    $("#wrapper").toggleClass("toggled");
+                    resetMainPanel();
+                }
+            }
+        });
     </script>
 
     <script src="js/bootstrap.min.js"></script>

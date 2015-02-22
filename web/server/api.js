@@ -27,11 +27,10 @@ Router.route('/api/location', {where: 'server'})
     Pontuation.cell(json.lon, json.lat).userKeepAlive(json.email);
 
 		this.response.writeHead(200, {'Content-Type': 'application/json'});
-    this.response.end(JSON.stringify({'time': 60}));
+    this.response.end(JSON.stringify({owner: Pontuation.cell(json.lon, json.lat).owner}));
 	});
 
 Router.route('/api/:others', {where: 'server'})
   .post(function(){
     response(this, 'No api function here');
   })
-

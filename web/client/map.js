@@ -5,6 +5,7 @@ function drawCell(cell){
     var lat = cell.lat;
     var lon = cell.lon;
 
+    console.log("a");
 
     var coords = [
         new google.maps.LatLng(lat, lon),
@@ -16,17 +17,13 @@ function drawCell(cell){
 
     var pol = new google.maps.Polygon({
         paths: coords,
-        fillColor: Users.findOne({team: cell.owner}).color,
+        fillColor: '#FF0000', //User.findOne({team: 1}).color,
         strokeWeight: 1,
         strokeColor:'#666666',
         fillOpacity: 0.4
     });
 
     pol.setMap(map);
-}
-
-function initMap() {
-
 }
 
 Template.map.rendered = function(){
@@ -82,28 +79,21 @@ Template.map.helpers({
 
             map.setOptions({styles: styles});
 
-            console.log(Cells.find().fetch());
-
             var cells = Cells.find();
             cells.forEach(function(cell){
                 if(cell.owner > 0)
                     drawCell(cell);
             });
-            //drawCell({lat: 40.186, lon: -8.416}, map);
-            //drawCell(40.187, -8.416, map);
-            //drawCell(40.186, -8.417);
         }
     }
 });
 
-Template.welcome.rendered = function(){
+/*Template.welcome.rendered = function(){
     Session.set("initialized", true);
 }
 
 Template.welcome.helpers({
     dummy: function(){
-        console.log(Cells.find().fetch());
-
         if(Session.get("initialized")){
         var mapOptions = {
             zoom: 15,
@@ -151,16 +141,10 @@ Template.welcome.helpers({
 
         map.setOptions({styles: styles});
 
-        console.log(Cells.find().fetch());
-
         var cells = Cells.find();
         cells.forEach(function(cell){
-            console.log("cell");
             drawCell(cell);
         });
-        //drawCell({lat: 40.186, lon: -8.416}, map);
-        //drawCell(40.187, -8.416, map);
-        //drawCell(40.186, -8.417);
         }
     }
-});
+});*/
