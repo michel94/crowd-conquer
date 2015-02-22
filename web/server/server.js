@@ -1,11 +1,11 @@
 Meteor.startup(function(){
-    tests();
+    //tests();
 });
 
 Meteor.methods({
-    /*login: function (email){
+    myLogin: function (email){
         Database.getUser(email);
-    },*/
+    },
     createTeam: function (post) {
 		var email = Meteor.user().services.google.email;
 		var id = Users.findOne({email: email}).team;
@@ -19,6 +19,6 @@ Meteor.methods({
       	console.log("join Team");
     },
     leaveTeam: function (post) {
-        Users.update({email:Meteor.user().services.google.email}, {$set: {team:null}});
+        //Users.update({email:Meteor.user().services.google.email}, {$set: {team:null}});
     }
-})
+});

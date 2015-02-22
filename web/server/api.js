@@ -24,10 +24,17 @@ Router.route('/api/location', {where: 'server'})
 
     console.log(json.lon, json.lat, json.email);
     Database.getUser(json.email);
-    Pontuation.cell(json.lon, json.lat).userKeepAlive(json.email);
 
-		this.response.writeHead(200, {'Content-Type': 'application/json'});
-    this.response.end(JSON.stringify({owner: Pontuation.cell(json.lon, json.lat).owner}));
+    var cell = Pontuation.cell(json.lon, json.lat)
+    cell.userKeepAlive(json.email);
+	this.response.writeHead(200, {'Content-Type': 'application/json'});
+
+    var ratio = (cell.value-cell.avail)/cell.value
+    this.response.end(JSON.stringify({
+            owner: parseInt(cell.owner),
+            team: Users.findOne({email: json.email}).team,
+            ratio: Math.round(ratio * 1000) / 1000 //3 casas decimais
+        }));
 	});
 
 Router.route('/api/:others', {where: 'server'})
