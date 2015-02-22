@@ -44,7 +44,6 @@ function drawCell(cell){
 
 Template.map.rendered = function(){
     Session.set("initialized", true);
-    cellTeam = "EQUIPA XPTO"
     cellTeamID = 4;
 }
 
@@ -197,11 +196,14 @@ Template.welcome.helpers({
 });*/
 
 function showArrays(event) {
+  var team = Users.findOne({email:Meteor.user().services.google.email}).team;
+  Users.findOne({team: team});
+  var cellTeam = Meteor.user().services.google.name;
 
   var vertices = this.getPath();
 
   var contentString = '<b>' + event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4) + '</b><br>' +
-                      '<b>Controlled by: </b>' + cellTeam + '(' + cellTeamID + ')' + ')<br><b>Level:</b> 92';
+                      '<b>Controlled by: </b>' + cellTeam;
 
   infoWindow.setContent(contentString);
   infoWindow.setPosition(event.latLng);
