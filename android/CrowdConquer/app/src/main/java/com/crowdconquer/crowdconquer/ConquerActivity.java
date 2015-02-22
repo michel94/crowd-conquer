@@ -116,7 +116,6 @@ public class ConquerActivity extends Activity {
         public void run() {
             while (true) {
                 if (progress == 100) {
-                    Api.startConquer();
                     break;
                 }
                 progress++;
@@ -147,7 +146,7 @@ public class ConquerActivity extends Activity {
                 break;
             else currentAccount = null;
         }
-        String[] splits =currentAccount.split("@");
+        String[] splits = currentAccount.split("@");
         currentAccount = splits[0]  + " : BlueTeam";
         return currentAccount;
     }

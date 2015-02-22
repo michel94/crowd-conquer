@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.crowdconquer.crowdconquer.data.StaticData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -20,7 +21,7 @@ public class BackgroundLocationService extends Service implements
         GooglePlayServicesClient.OnConnectionFailedListener,
         LocationListener {
 
-    public static final long UPDATE_INTERVAL = 300000;
+    public static final long UPDATE_INTERVAL = 10000;
 
     private LocationClient mLocationClient;
     private LocationRequest mLocationRequest;
@@ -90,6 +91,8 @@ public class BackgroundLocationService extends Service implements
     @Override
     public void onLocationChanged(Location location) {
         Log.i("rekt", String.valueOf(location));
+        StaticData.user.setLocation(location);
+        new Thread(sendLocation).start();
     }
 
     /*
@@ -122,6 +125,13 @@ public class BackgroundLocationService extends Service implements
             // If no resolution is available, display an error dialog
         }
     }
+
+    private Runnable sendLocation = new Runnable() {
+        @Override
+        public void run() {
+            Api.sendLocation();
+        }
+    };
 }
 
 //TODO AUTO TURN-ON LOCATION IF DISABLED
