@@ -1,5 +1,5 @@
 Meteor.startup(function(){
-    tests();
+    //tests();
 });
 
 Meteor.methods({
