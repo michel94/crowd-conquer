@@ -22,6 +22,8 @@ Router.route('/api/location', {where: 'server'})
 			return;
 		}
 
+    console.log(json.lat, json.lon);
+
 		this.response.writeHead(200, {'Content-Type': 'application/json'});
     this.response.end(JSON.stringify({'time': 60}));
 	});
@@ -30,3 +32,4 @@ Router.route('/api/:others', {where: 'server'})
   .post(function(){
     response(this, 'No api function here');
   })
+
