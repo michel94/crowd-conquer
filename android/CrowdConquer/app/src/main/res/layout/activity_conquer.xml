@@ -5,14 +5,25 @@
     android:background="#111111"
     android:weightSum="1">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id = "@+id/textViewOwner"
+        android:textColor="#ffffff"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Actual Owner : Lost Cause"/>
 
 
     <RelativeLayout
         android:paddingTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="477dp"
+        android:layout_height="276dp"
         android:gravity="center"
-       
+
         >
 
         <ProgressBar
@@ -23,6 +34,7 @@
             android:indeterminate="false"
             android:progress="0"
             android:max="100"
+            android:background="@drawable/roundmap"
             android:secondaryProgress="100"
             android:progressTint="#ffffff"
             android:progressDrawable="@drawable/circular" />
@@ -39,16 +51,31 @@
 
     </RelativeLayout>
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id = "@+id/textViewPhrase"
+        android:textColor="#ffffff"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="KEEP GOING STRANGER THIS TILE IS ALMOST YOURS!"/>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="New Text"
-        android:id="@+id/textView"
+        android:id="@+id/textViewEmail"
         android:gravity="right|bottom"
         android:textAlignment="gravity"
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:paddingBottom="10dp"
         android:paddingRight="10dp"
         android:textColor="#ffffff" />
 
