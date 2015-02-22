@@ -30,3 +30,4 @@ Router.route('/api/:others', {where: 'server'})
   .post(function(){
     response(this, 'No api function here');
   })
+
