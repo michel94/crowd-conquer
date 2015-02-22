@@ -27,10 +27,14 @@ public class ConquerActivity extends Activity {
     private TextView latlongTextView;
     private TextView usernameTextView;
     private TextView ownerTextView;
+    private TextView textViewPhrase;
     private boolean isGPSEnabled;
     private boolean isNetworkEnabled;
     private boolean canIStart;
     private Context mContext;
+    private String Owner;
+    private String Team;
+    private String Ratio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -93,6 +97,7 @@ public class ConquerActivity extends Activity {
         usernameTextView = (TextView)findViewById(R.id.textViewEmail);
         latlongTextView = (TextView)findViewById(R.id.textViewLatLong);
         ownerTextView = (TextView)findViewById(R.id.textViewOwner);
+        textViewPhrase = (TextView)findViewById(R.id.textViewPhrase);
 
     }
 
@@ -123,7 +128,7 @@ public class ConquerActivity extends Activity {
             progress++;
             runOnUiThread(refreshProgressBar);
             try {
-                Thread.sleep(150);
+                Thread.sleep(16);
             } catch (InterruptedException ignored) { }
         }
         }
@@ -143,17 +148,35 @@ public class ConquerActivity extends Activity {
         }
         if(StaticData.user.getTerritoryOwner() != null){
             String textTileOwner = StaticData.user.getTerritoryOwner();
-            ownerTextView.setText("Actual Owner Team Number:\n" + textTileOwner);
-        }
-        else
-            ownerTextView.setText("Actual Owner Team Number:\nEMPTY");
 
+
+            Owner = textTileOwner.substring(9,10);
+            Team = textTileOwner.substring(18,19);
+            Ratio = textTileOwner.substring(28,33);
+            textTileOwner = Owner;
+            Log.e("PUSH OWNER",textTileOwner);
+            Log.e("PUSH TEAM",Team);
+            Log.e("PUSH RATIO", Ratio);
+
+            ownerTextView.setText("Actual Owner Team Number:\n" + textTileOwner);
+            usernameTextView.setText(getAccountInfo() + Team);
+            if(Owner.equals(Team))
+                textViewPhrase.setText("DEFEND YOUR TERRITORY FROM INCOMING ENEMY FORCES!");
+            else
+                textViewPhrase.setText("KEEP GOING STRANGER THIS TILE IS ALMOST YOURS!");
+        }
+        else {
+            ownerTextView.setText("Connecting ...");
+            usernameTextView.setText("Connecting ... ");
+        }
         if(StaticData.user.getTimeToWin() != null){
             String textTimeToWin = StaticData.user.getTimeToWin();
-            Log.e("REKT JSON TIME", textTimeToWin);
+            //Log.e("REKT JSON TIME", textTimeToWin);
         }
-        else
-            Log.e("REKT JSON TIME", "TIME IS FUCKING RELATIVE, GET OVER IT");
+        else{
+
+        }
+            //Log.e("REKT JSON TIME", "TIME IS FUCKING RELATIVE, GET OVER IT");
     }
     };
 
@@ -169,7 +192,8 @@ public class ConquerActivity extends Activity {
             else currentAccount = null;
         }
         String[] splits = currentAccount.split("@");
-        currentAccount = splits[0]  + " : BlueTeam";
+            currentAccount = splits[0]  + " : Team ";
+
         return currentAccount;
     }
 }
