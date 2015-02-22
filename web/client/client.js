@@ -14,10 +14,3 @@ Tracker.autorun(function() {
             Users.insert({email: email});
     }
 });
-
-Template.das.helpers({
-    d: function(){
-        console.log(Users.find());
-        return Users.find();
-    }
-});
