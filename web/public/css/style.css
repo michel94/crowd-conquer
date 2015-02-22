@@ -14,6 +14,8 @@ body {
     top: 0px;
     font-size: 30pt;
     padding-top: 200px;
+    padding-bottom: 40px;
+    color: white;
 }
 
 #login-absolute {
