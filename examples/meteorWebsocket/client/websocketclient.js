@@ -58,17 +58,22 @@ function onOpen(event) {
     console.log('Connected to ' + window.location.host + '.');
     websocket.send("hello");
 }
+send = function(message){
+    if(websocket != null)
+        websocket.send(message);
+}
 
 function onClose(event) {
     console.log('closed');
 }
 
-function onMessage(message) {
+function onMessage(message) { 
     console.log("Response: ");
-    console.log(JSON.parse(message.data));
+    //console.log(JSON.parse(message.data));
+    $("#log").append('<p>' + message.data + '</p>');
 }
 
 function onError(event) {
     console.log('error ' + event.data);
 }
-
+ 
