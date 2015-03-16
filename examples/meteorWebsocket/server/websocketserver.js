@@ -1,6 +1,7 @@
 
 var http = Meteor.npmRequire('http');
 var WebSocketServer = Meteor.npmRequire('websocket').server;
+Fiber = Meteor.npmRequire('fibers');
 
 var server = http.createServer(function(request, response) {
 	console.log((new Date()) + ' Received request for ' + request.url);
@@ -36,9 +37,13 @@ wsServer.on('request', function(request) {
 	connection.on('message', function(message) {
 		if (message.type === 'utf8') {
 			console.log('Received Message: ' + message.utf8Data);
-			//var json = {num: 3, str: 'string'}
-			//connection.send(JSON.stringify(json) )
-			connection.sendUTF(message.utf8Data);
+
+			message = JSON.parse(message.utf8Data);
+			console.log(message);
+			if(message.method == 'rpc'){
+				runRpc(message.rpc);
+			}
+			
 		}
 		else if (message.type === 'binary') {
 			console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
@@ -50,3 +55,10 @@ wsServer.on('request', function(request) {
 	});
 });
 
+Meteor.functions = {
+	ping: function(x, y, user){
+		console.log('Received ping from user ' + user + ' at ' + x + ', ' + y);
+	}
+}
+
+Meteor.methods(Meteor.functions);
