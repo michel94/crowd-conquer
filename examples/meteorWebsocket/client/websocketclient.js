@@ -1,8 +1,9 @@
 
 websocket = null;
 window.onload = function() { // URI = ws://10.16.0.165:8080/WebSocket/ws
-    connect('ws://localhost:8080/');
+    connect('ws://localhost:8080/');    
 }
+
 connect = function(host) { // connect to the host websocket
     if ('WebSocket' in window)
         websocket = new WebSocket(host, 'echo-protocol');

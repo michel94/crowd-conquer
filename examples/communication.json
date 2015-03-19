@@ -1,0 +1,149 @@
+
+/*subscribe (cancels other subscriptions):
+
+{
+	"method": "subscribe",
+	"data": {
+		"x": 33.4231,
+		"y": 54.3535
+	}
+}*/
+
+rpc (used to implement all the game logic):
+
+{
+	"method": "rpc",
+	"rpc": {
+		"method_name": "foo",
+		"args": {
+			"a": 3,
+			"derpy": 56,
+			"str": "asadsad"
+		},
+		"callback_id": 134
+	}
+}
+
+RPC PROVIDES CALLBACKS. SO, SUBSCRIBE ITSELF COULD BE A RPC METHOD.
+subscribe is method limited to where you are. The mobile app only calls it 
+when you move. There are no real time updates when you are not in that region
+
+{
+	"method": "rpc",
+	"rpc": {
+		"method_name": "subscribe",
+		"args": {
+			"x": 3.2355,
+			"y": 56.9875
+		},
+		"callback_id": 234
+	}
+}
+
+... with callback:
+
+{
+	"method": "rpc_callback",
+	"rpc_callback": {
+		"callback_id": 234,
+		"data": [
+			{
+				"x": 34.3456,
+				"y": 45.5678,
+				"users": [
+					{
+						"user_id": "k74kj6kj4756j7",
+						"name": "Miguel Duarte",
+						"team_id": 9
+					},
+					{
+						"user_id": "k74kj6kj4756j7",
+						"name": "Miguel Duarte",
+						"team_id": 9
+					}
+
+				]
+
+			},
+			{
+				"x": 34.3456,
+				"y": 45.5678,
+				"users": [
+					{
+						"user_id": "k74kj6kj4756j7",
+						"name": "Miguel Duarte",
+						"team_id": 9
+					},
+					{
+						"user_id": "k74kj6kj4756j7",
+						"name": "Miguel Duarte",
+						"team_id": 9
+					}
+
+				]
+				
+			}
+		]
+	}
+}
+
+(subscribe method has a heavy callback, so it must be avoided and optimized 
+to return data about the regions that you were not subscribing to 
+(region intersection, more or less))
+
+updates to subscription (used to receive automatic updates for the nearest locations, from the server to the client):
+
+{
+	"method": "update",
+	"update": {
+		"cell": {"x": 32.2352, "y": 54.2323},
+		"event": "conquest",
+		"conquest": {
+			"team_id": 6,
+		}
+	}
+}
+
+{
+	"method": "update",
+	"update": {
+		"cell": {"x": 32.2352, "y": 54.2323},
+		"event": "new_user",
+		"new_user": {
+			"user_id": "23k6b36etkj356k4j5",
+			"name": "ggraca",
+			"team_id": 8
+		}
+	}
+}
+
+{
+	"method": "update",
+	"update": {
+		"cell": {"x": 32.2352, "y": 54.2323},
+		"event": "removed_user",
+		"removed_user": {
+			"user_id": "23k6b36etkj356k4j5"
+		}
+	}
+}
+
+{
+	"method": "update",
+	"update": {
+		"cell" : {"x": 23.6421, "y": 78.2323},
+		"event": "battle_update",
+		"battle_update": {
+			"time_remaining": 32
+		}
+	}
+}
+
+
+/*
+	- Mobile app keeps track of conditions and runs algorithm to preview 
+	progress, but it's changed everytime it receives an update.
+	
+
+*/
+

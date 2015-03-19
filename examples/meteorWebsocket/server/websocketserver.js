@@ -20,8 +20,8 @@ wsServer = new WebSocketServer({
 });
 
 function originIsAllowed(origin) {
-  // put logic here to detect whether the specified origin is allowed.
-  return true;
+	// put logic here to detect whether the specified origin is allowed.
+	return true;
 }
 
 wsServer.on('request', function(request) {
