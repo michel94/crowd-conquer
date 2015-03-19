@@ -1,5 +1,0 @@
-<root>
-    <item name='android.os.IBinder'>
-        <annotation name='java.lang.annotation.Deprecated' />
-    </item>
-</root>
