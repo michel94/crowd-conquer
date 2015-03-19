@@ -40,7 +40,7 @@ wsServer.on('request', function(request) {
 
 			message = JSON.parse(message.utf8Data);
 			if(message.method == 'rpc'){
-				runRpc(message.rpc);
+				runRpc(connection, message.rpc);
 			}
 			
 		}
@@ -69,11 +69,26 @@ function parseRpc(method_name, args){
 	return sortedArgs;
 }
 
-runRpc = function(object){
+runRpc = function(connection, object){
 	var args = parseRpc(object.method_name, object.args);
-	
+	var callback_id = object.callback_id;
 	Fiber(function(){
-		return Meteor.apply(object.method_name, args);
+		var r = Meteor.apply(object.method_name, args);
+		if(typeof r === 'undefined'){
+			;
+		}else{
+			if(typeof object.callback_id !== 'undefined'){
+				var ret = {
+					method: "rpc_callback",
+					rpc_callback: {
+						callback_id: object.callback_id,
+						data: r,
+						error: null
+					}
+				}
+				connection.sendUTF(JSON.stringify(ret));
+			}
+		}
 	}).run();
 }
 

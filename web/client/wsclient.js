@@ -3,6 +3,8 @@
 */
 
 websocket = null;
+var curCallbackId = 1;
+var callbacks = {}
 window.onload = function() {
     connect('ws://localhost:8080/');
 }
@@ -23,7 +25,7 @@ connect = function(host) { // connect to the host websocket
 }
 function onOpen(event) {
     console.log('Connected to ' + window.location.host + '.');
-    rpcCall('ping', {x: 13.42, y: 37.46, user: 'nabo'});
+    rpcCall('ping', {x: 13.42, y: 37.46, user: 'nabo'}, function (e, r){console.log(r)}); // test
 }
 
 send = function(message){
@@ -33,26 +35,41 @@ send = function(message){
 
 function onClose(event) {
 	// Reconnect code here
-    console.log('closed');
+	console.log('closed');
 }
 
 function onMessage(message) {
-    console.log("Response: ");
+	var message = JSON.parse(message.data);
+	if(message.method == 'rpc_callback'){
+		var ret = message.rpc_callback;
+		if(typeof callbacks[ret.callback_id] == 'function')
+			callbacks[ret.callback_id](ret.error, ret.data);
+	}
 }
 
 function onError(event) {
-    console.log('error ' + event.data);
+	console.log('error ' + event.data);
+}
+
+function getNextCallbackId(){
+	return curCallbackId++;
 }
  
-rpcCall = function(name, args){
+rpcCall = function(name, args, callback){
 	if(websocket != null){
-		var message = JSON.stringify({
+		var message = {
 			method: "rpc",
 			rpc: {
 				method_name: name,
 				args: args
 			}
-		});
+		}
+		if(typeof callback == 'function'){
+			var call_id = getNextCallbackId();
+			callbacks[call_id] = callback;
+			message.rpc.callback_id = call_id;
+		}
+		var message = JSON.stringify(message);
 		websocket.send(message);
 	}
 }

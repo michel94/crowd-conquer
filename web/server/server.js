@@ -2,9 +2,11 @@
 meteorCalls = {
 	ping: function(x, y, user){
 		console.log('Received ping from user ' + user + ' at ' + x + ', ' + y);
+		return 'ping';
 	},
 	sendMessage: function(message, user){
 		console.log('Received ' + message + ' from user ' + user);
+		return 'ok';
 	}
 }
 
