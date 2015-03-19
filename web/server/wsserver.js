@@ -4,12 +4,12 @@ var https = Meteor.npmRequire('https');
 var WebSocketServer = Meteor.npmRequire('websocket').server;
 var fs = Meteor.npmRequire('fs');
 var path = process.env.PWD;
-//console.log(path);
 Fiber = Meteor.npmRequire('fibers');
 
 var serverOptions = {
 	key: fs.readFileSync(path + '/server/ssl/key.pem'),
-	cert: fs.readFileSync(path + '/server/ssl/cert.pem')
+	cert: fs.readFileSync(path + '/server/ssl/cert.pem'),
+	passphrase: 'asdfzxcv'
 };
 
 var server = https.createServer(serverOptions, function(request, response) {
@@ -99,4 +99,5 @@ runRpc = function(connection, object){
 		}
 	}).run();
 }
+
 
