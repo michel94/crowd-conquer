@@ -6,7 +6,7 @@ websocket = null;
 var curCallbackId = 1;
 var callbacks = {}
 window.onload = function() {
-    connect('ws://localhost:8080/');
+    connect('wss://localhost:8080/');
 }
 connect = function(host) { // connect to the host websocket
     if ('WebSocket' in window)

@@ -1,10 +1,18 @@
 
 
-var http = Meteor.npmRequire('http');
+var https = Meteor.npmRequire('https');
 var WebSocketServer = Meteor.npmRequire('websocket').server;
+var fs = Meteor.npmRequire('fs');
+var path = process.env.PWD;
+//console.log(path);
 Fiber = Meteor.npmRequire('fibers');
 
-var server = http.createServer(function(request, response) {
+var serverOptions = {
+	key: fs.readFileSync(path + '/server/ssl/key.pem'),
+	cert: fs.readFileSync(path + '/server/ssl/cert.pem')
+};
+
+var server = https.createServer(serverOptions, function(request, response) {
 	console.log((new Date()) + ' Received request for ' + request.url);
 	response.writeHead(404);
 	response.end();
@@ -21,8 +29,8 @@ wsServer = new WebSocketServer({
 });
 
 function originIsAllowed(origin) {
-  // put logic here to detect whether the specified origin is allowed.
-  return true;
+	// put logic here to detect whether the specified origin is allowed.
+	return true;
 }
 
 wsServer.on('request', function(request) {
