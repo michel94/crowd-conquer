@@ -42,8 +42,10 @@ function onMessage(message) {
 	var message = JSON.parse(message.data);
 	if(message.method == 'rpc_callback'){
 		var ret = message.rpc_callback;
-		if(typeof callbacks[ret.callback_id] == 'function')
+		if(typeof callbacks[ret.callback_id] == 'function'){
 			callbacks[ret.callback_id](ret.error, ret.data);
+			callbacks[ret.callback_id] = null;
+		}
 	}
 }
 
