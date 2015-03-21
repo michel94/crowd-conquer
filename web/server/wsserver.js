@@ -24,7 +24,7 @@ server.listen(8080, function() {
 wsServer = new WebSocketServer({
 	httpServer: server,
 	// You should not use autoAcceptConnections for production applications
-	// You should verify the connection's origin and decide whether or not to accept it. 
+	// connection's origin must be verified to decide whether or not to accept it. 
 	autoAcceptConnections: false
 });
 
@@ -44,18 +44,17 @@ wsServer.on('request', function(request) {
 	console.log((new Date()) + ' Connection accepted.');
 
 	connection.on('message', function(message) {
+		console.log('received message');
 		if (message.type === 'utf8') {
+			console.log(message.utf8Data)
 
 			message = JSON.parse(message.utf8Data);
 			if(message.method == 'rpc'){
 				runRpc(connection, message.rpc);
+			}else{
+				connection.sendUTF('Unrecognized method');
 			}
-			
 		}
-		/*else if (message.type === 'binary') {
-			console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-			connection.sendBytes(message.binaryData);
-		}*/
 	});
 
 	connection.on('close', function(reasonCode, description) {
@@ -63,29 +62,30 @@ wsServer.on('request', function(request) {
 	});
 });
 
-
-
 function parseRpc(method_name, args){
 	var argList = meteorCalls[method_name].toString()
 		.replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg,'')
 		.match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]
-		.split(/,/);
+		.split(/,/); // gets arguments in function header, applying regex after toString() 
 	var sortedArgs = new Array(argList.length);
 	for(i=0; i<argList.length; i++){
-		sortedArgs[i] = args[argList[i]];
+		sortedArgs[i] = args[argList[i]]; //obtain the corresponding value on the object argument
 	}
 	return sortedArgs;
 }
 
 runRpc = function(connection, object){
+	/* 	Run remote method
+		If the function returned something and a callback_id has been specified,
+		deliver response with method = "rpc_callback"
+		Needs fiber because calls meteor code inside node.js code */
+	
 	var args = parseRpc(object.method_name, object.args);
 	var callback_id = object.callback_id;
 	Fiber(function(){
 		var r = Meteor.apply(object.method_name, args);
-		if(typeof r === 'undefined'){
-			;
-		}else{
-			if(typeof object.callback_id !== 'undefined'){
+		if(typeof r !== 'undefined'){
+			if(typeof object.callback_id !== 'undefined'){ 
 				var ret = {
 					method: "rpc_callback",
 					rpc_callback: {

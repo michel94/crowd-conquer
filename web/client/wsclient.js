@@ -6,7 +6,7 @@ websocket = null;
 var curCallbackId = 1;
 var callbacks = {}
 window.onload = function() {
-    connect('wss://localhost:8080/');
+    connect('wss://localhost:8080');
 }
 connect = function(host) { // connect to the host websocket
     if ('WebSocket' in window)
@@ -35,6 +35,7 @@ send = function(message){
 
 function onClose(event) {
 	// Reconnect code here
+	ec = event;
 	console.log('closed');
 }
 
@@ -50,7 +51,8 @@ function onMessage(message) {
 }
 
 function onError(event) {
-	console.log('error ' + event.data);
+	e = event;
+	console.log('error ' + event.toString());
 }
 
 function getNextCallbackId(){
@@ -66,7 +68,7 @@ rpcCall = function(name, args, callback){
 				args: args
 			}
 		}
-		if(typeof callback == 'function'){
+		if(typeof callback == 'function'){ //save callback with specific id to keep track of what callback to call when response arrives
 			var call_id = getNextCallbackId();
 			callbacks[call_id] = callback;
 			message.rpc.callback_id = call_id;
