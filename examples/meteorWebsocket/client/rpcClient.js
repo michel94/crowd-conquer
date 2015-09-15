@@ -1,4 +1,6 @@
-rpcCall = function(name, args){
+Connection = {}
+
+Connection.call = function(name, args){
 	if(websocket != null){
 		var message = JSON.stringify({
 			method: "rpc",

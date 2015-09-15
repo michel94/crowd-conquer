@@ -22,7 +22,7 @@ connect = function(host) { // connect to the host websocket
 function onOpen(event) {
     console.log('Connected to ' + window.location.host + '.');
 
-    rpcCall('ping', {x: 13.42, y: 37.46, user: 'nabo'});
+    Connection.call('ping', {x: 13.42, y: 37.46, user: 'nabo'});
 }
 
 send = function(message){

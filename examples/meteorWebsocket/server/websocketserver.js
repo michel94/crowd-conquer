@@ -1,9 +1,19 @@
 
 var http = Meteor.npmRequire('http');
+var https = Meteor.npmRequire('https');
+var fs = Meteor.npmRequire('fs');
 var WebSocketServer = Meteor.npmRequire('websocket').server;
 Fiber = Meteor.npmRequire('fibers');
 
-var server = http.createServer(function(request, response) {
+
+var appRoot = process.env.PWD;
+
+var options = {
+	key: fs.readFileSync(appRoot + '/keys/server.key'),
+	cert: fs.readFileSync(appRoot + '/keys/server.crt')
+};
+
+var server = https.createServer(options, function(request, response) {
 	console.log((new Date()) + ' Received request for ' + request.url);
 	response.writeHead(404);
 	response.end();
