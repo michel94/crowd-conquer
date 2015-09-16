@@ -15,8 +15,8 @@ var options = {
 
 var server = https.createServer(options, function(request, response) {
 	console.log((new Date()) + ' Received request for ' + request.url);
-	response.writeHead(404);
-	response.end();
+	response.writeHead(200);
+	response.end('ola');
 });
 server.listen(8080, function() {
 	console.log((new Date()) + ' Server is listening on port 8080');
@@ -34,6 +34,10 @@ function originIsAllowed(origin) {
 	return true;
 }
 
+wsServer.on('error', function(e){
+	console.log(e);
+});
+
 wsServer.on('request', function(request) {
 	if (!originIsAllowed(request.origin)) {
 		request.reject();
@@ -41,18 +45,17 @@ wsServer.on('request', function(request) {
 		return;
 	}
 	
-	var connection = request.accept('echo-protocol', request.origin);
+	var connection = request.accept(null, request.origin);
 	console.log((new Date()) + ' Connection accepted.');
 
 	connection.on('message', function(message) {
 		if (message.type === 'utf8') {
-			console.log('Received Message: ' + message.utf8Data);
 
 			message = JSON.parse(message.utf8Data);
-			console.log(message);
 			if(message.method == 'rpc'){
 				runRpc(message.rpc);
-			}
+			}else
+				console.log('Received Message: ' + message.utf8Data);
 			
 		}
 		else if (message.type === 'binary') {

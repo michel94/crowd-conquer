@@ -1,14 +1,14 @@
 
 websocket = null;
 window.onload = function() { // URI = ws://10.16.0.165:8080/WebSocket/ws
-    connect('ws://localhost:8080/');    
+    connect('wss://localhost:8080/');
 }
 
 connect = function(host) { // connect to the host websocket
     if ('WebSocket' in window)
-        websocket = new WebSocket(host, 'echo-protocol');
+        websocket = new WebSocket(host);
     else if ('MozWebSocket' in window)
-        websocket = new MozWebSocket(host, 'echo-protocol');
+        websocket = new MozWebSocket(host);
     else {
         console.log('error on connect');
         return;
@@ -20,17 +20,19 @@ connect = function(host) { // connect to the host websocket
     
 }
 function onOpen(event) {
-    console.log('Connected to ' + window.location.host + '.');
+    console.log('Connected WebSocket');
 
     Connection.call('ping', {x: 13.42, y: 37.46, user: 'nabo'});
 }
 
 send = function(message){
+    console.log('sending')
     if(websocket != null)
         websocket.send(message);
 }
 
 function onClose(event) {
+    E = event;
     console.log('closed');
 }
 
@@ -41,6 +43,7 @@ function onMessage(message) {
 }
 
 function onError(event) {
+    E = event;
     console.log('error ' + event.data);
 }
  
