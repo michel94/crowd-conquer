@@ -1,2 +1,0 @@
-curl -X POST http://localhost:3000/api/location -d 'args={"lat":33.85, "lon":23.23, 
-"email":"priest@priest"}'
