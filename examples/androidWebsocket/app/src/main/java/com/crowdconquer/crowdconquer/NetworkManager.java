@@ -28,9 +28,10 @@ public class NetworkManager extends AsyncTask<String, Object, Object> {
     protected Object doInBackground(String... params) {
         try{
             WebSocketFactory factory = new WebSocketFactory();
+            factory.setSSLContext(NaiveSSLContext.getInstance("TLS"));
 
             factory
-                    .createSocket("ws://localhost:8080")
+                    .createSocket("wss://192.168.1.5:8080")
                     .addListener(new WebSocketAdapter() {
                         @Override
                         public void onTextMessage(WebSocket ws, String message) {
@@ -46,7 +47,6 @@ public class NetworkManager extends AsyncTask<String, Object, Object> {
 
             Log.d(T, "ok");
         }catch (Exception e){
-            ConnectException ce = (ConnectException) e;
             Log.d(T, "could not connect");
             e.printStackTrace();
         }
