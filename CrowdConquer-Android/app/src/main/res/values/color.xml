@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white" >#ffffff</color>
+    <color name="app_primary" >#ffffff</color>
+    <color name="app_primary_pressed" >#eeeeee</color>
+    <color name="app_ripple">#fafafa</color>
 </resources>
