@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.rey.material.widget.FloatingActionButton;
 
+import java.util.concurrent.Executor;
 
 
 public class LoginActivity extends Activity {
@@ -29,8 +30,8 @@ public class LoginActivity extends Activity {
 
         setOnClickListenerLogin();
 
-
-
+        NetworkTask networkTask = new NetworkTask();
+        networkTask.start();
     }
 
 
