@@ -13,7 +13,7 @@ Meteor.methods = function(methods){
 		if(!this.hasOwnProperty(l[i]))
 			return false;
 	return true;
-}*/ // Check this
+}*/ // TODO Causing Meteor error, perfectly working code
 
 function contains(d, l){
 	for(i=0; i<l.length; i++)
@@ -22,11 +22,14 @@ function contains(d, l){
 	return true;
 }
 
-RPC.parseData = function(data){ //receives data, returns array of arguments
+RPC.parseData = function(data){ 
+	/* receives string data to parse, 
+	returns method name and arguments */
+
 	try{
 		data = JSON.parse(data);
 		if(data.protocol != 'rpc' || !data.hasOwnProperty('rpc') )
-			return -1; //TODO Use a proper js error
+			return -1; //TODO Use a proper error code/ throw error. Probably some research is needed here.
 	}catch(e){
 		console.log(e)
 		return -1;
@@ -44,7 +47,10 @@ RPC.parseData = function(data){ //receives data, returns array of arguments
 
 }
 
-RPC.argsToList = function(method_name, args){
+RPC.argsToList = function(method_name, args){ 
+	/* Receives args Object and returns arguments in 
+	a sorted list to be passed directly to the method */
+
 	var argList = RPC.methods[method_name].toString()
 		.replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg,'')
 		.match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]
