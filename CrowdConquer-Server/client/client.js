@@ -4,7 +4,13 @@ window.onload = function() {
 }
 
 function onOpen(){
-	websocket.send('hello');
+	websocket.send(JSON.stringify({
+		protocol: 'rpc',
+		rpc: {
+			methodName: 'hello',
+			args: {}
+		}
+	}));
 }
 function onClose(){
 }
