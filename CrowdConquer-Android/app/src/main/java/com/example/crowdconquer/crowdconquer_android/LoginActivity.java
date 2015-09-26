@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 
 import com.rey.material.widget.FloatingActionButton;
@@ -18,6 +19,9 @@ import java.util.concurrent.Executor;
 public class LoginActivity extends Activity {
 
     FloatingActionButton loginButton;
+    String T = "L";
+
+    private NetworkTask networkTask; // TODO Where should we declare variables that are going to be accessed by all activities?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,29 @@ public class LoginActivity extends Activity {
 
         setOnClickListenerLogin();
 
-        NetworkTask networkTask = new NetworkTask();
+        networkTask = new NetworkTask();
+
+        networkTask.onConnect(new Callback() {
+            @Override
+            public void action() {
+                onConnect();
+            }
+        });
         networkTask.start();
+
+
+    }
+
+    public void onConnect(){
+        Log.d(T, "Frontend is connected");
+        networkTask.getRpc().hello(new RPCCallback() {
+            @Override
+            public void action(Object response) {
+                String info = (String) response;
+                Log.d(T, "received response: " + info);
+            }
+        });
+
     }
 
 

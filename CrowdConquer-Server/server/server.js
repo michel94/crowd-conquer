@@ -19,7 +19,22 @@ Meteor.startup(function(){
 					console.log(result) //TODO IMPORTANT Check if result is error code or Object
 
 					Fiber(function(){
-						Meteor.apply(result.methodName, result.args)
+						if(!result.hasOwnProperty('callbackId') )
+							Meteor.apply(result.methodName, result.args);
+						else{
+							Meteor.apply(result.methodName, result.args, function(error, response){
+								ret = JSON.stringify({
+									protocol: 'rpcCallback',
+									rpcCallback: {
+										error: error,
+										response: response,
+										callbackId: result.callbackId
+									}
+								})
+								console.log('send callback ' + ret);
+								connection.send(ret)
+							});
+						}
 					}).run();
 				}
 
@@ -44,7 +59,9 @@ Meteor.startup(function(){
 
 	Meteor.methods({
 		hello: function(){
-			console.log('ok');
+			console.log('hello function');
+
+			return {info: 'Everything looks nice'};
 		}
 	});
 

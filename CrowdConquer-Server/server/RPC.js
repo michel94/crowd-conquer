@@ -32,11 +32,17 @@ RPC.parseData = function(data){
 	
 	if(!contains(rpcData, ['methodName', 'args']))
 		return -2; //TODO
+	
 
 	methodName = rpcData.methodName;
 	args = RPC.argsToList(methodName, rpcData.args);
 
-	return {methodName: methodName, args: args};
+	ret = {methodName: methodName, args: args};
+
+	if(rpcData.hasOwnProperty('callbackId'))
+		ret.callbackId = rpcData.callbackId
+
+	return ret;
 
 }
 
