@@ -1,4 +1,4 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer.network;
 
 /*
  * Copyright (C) 2015 Neo Visionaries Inc.

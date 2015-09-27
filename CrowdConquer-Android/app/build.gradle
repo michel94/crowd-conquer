@@ -4,7 +4,7 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
     defaultConfig {
-        applicationId "com.example.crowdconquer.crowdconquer_android"
+        applicationId 'com.crowdconquer.crowdconquer'
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.github.rey5137:material:1.2.1'
     compile 'com.github.rahatarmanahmed:circularprogressview:2.4.0'

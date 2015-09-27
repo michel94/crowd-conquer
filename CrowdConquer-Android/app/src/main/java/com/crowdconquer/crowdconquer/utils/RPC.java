@@ -1,4 +1,4 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer.utils;
 
 import com.neovisionaries.ws.client.WebSocket;
 

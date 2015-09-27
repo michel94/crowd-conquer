@@ -1,4 +1,4 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,57 +8,33 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 
+import com.crowdconquer.crowdconquer.R;
 import com.rey.material.widget.FloatingActionButton;
-
-import java.util.concurrent.Executor;
 
 
 public class LoginActivity extends Activity {
 
+    FloatingActionButton locationButton;
     FloatingActionButton loginButton;
-    String T = "L";
-
-    private NetworkTask networkTask; // TODO Where should we declare variables that are going to be accessed by all activities?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+        initViews();
+        startListeners();
+    }
+
+    void initViews() {
         setContentView(R.layout.activity_login);
+        locationButton = (FloatingActionButton) findViewById(R.id.locationButton);
+        loginButton = (FloatingActionButton) findViewById(R.id.loginButton);
+    }
 
-        loginButton = (FloatingActionButton) findViewById(R.id.fabId);
-
+    void startListeners() {
         setOnClickListenerLogin();
-
-        networkTask = new NetworkTask();
-
-        networkTask.onConnect(new Callback() {
-            @Override
-            public void action() {
-                onConnect();
-            }
-        });
-        networkTask.start();
-
-
     }
-
-    public void onConnect(){
-        Log.d(T, "Frontend is connected");
-        networkTask.getRpc().hello(new RPCCallback() {
-            @Override
-            public void action(Object response) {
-                String info = (String) response;
-                Log.d(T, "received response: " + info);
-            }
-        });
-
-    }
-
 
     void setOnClickListenerLogin(){
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -67,14 +43,13 @@ public class LoginActivity extends Activity {
                 if(isAppReadyToLogin()) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
-
             }
         });
     }
 
     boolean isAppReadyToLogin(){
-
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -90,11 +65,9 @@ public class LoginActivity extends Activity {
             alertDialog.setCanceledOnTouchOutside(false);
             alertDialog.show();
             return false;
-        }else{
+        } else {
             return true;
         }
 
     }
-
-
 }

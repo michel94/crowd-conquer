@@ -1,4 +1,4 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

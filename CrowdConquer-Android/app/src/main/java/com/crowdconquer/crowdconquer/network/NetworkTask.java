@@ -1,8 +1,10 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer.network;
 
 import android.util.Log;
-import com.example.crowdconquer.crowdconquer_android.NaiveSSLContext;
 
+import com.crowdconquer.crowdconquer.utils.Callback;
+
+import com.crowdconquer.crowdconquer.utils.RPC;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketFactory;
@@ -17,12 +19,17 @@ public class NetworkTask extends Thread{
     private String T="Network"; // tag for Log
     private String socketEndpoint = "wss://192.168.1.78:8080";
     private RPC rpc;
+    private boolean running = false;
 
     private Callback onConnectionCallback = null;
 
     private WebSocket ws;
 
     public NetworkTask(){
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     public WebSocket getSocket() {
@@ -39,6 +46,7 @@ public class NetworkTask extends Thread{
     @Override
     public void run() {
         Log.d(T, "Network thread created.");
+        started = true;
 
         try{
             WebSocketFactory factory = new WebSocketFactory();

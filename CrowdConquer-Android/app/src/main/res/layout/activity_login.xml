@@ -9,38 +9,54 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
     android:id="@+id/backgroundId"
-    tools:context="com.example.crowdconquer.crowdconquer_android.LoginActivity">
+    tools:context="com.crowdconquer.activities.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <com.rey.material.widget.TextView
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:text="Alpha Version!"
+            android:text="Welcome"
             android:textColor="@color/white"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="100dp"
             android:gravity="center"
-            android:textSize="50dp"/>
+            android:textSize="40sp"/>
 
-    <com.github.rahatarmanahmed.cpv.CircularProgressView
-        android:id="@+id/progressViewLogin"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        app:cpv_animAutostart="true"
-        app:cpv_thickness="20px"
-        app:cpv_indeterminate="true" />
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:id="@+id/progressViewLogin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:cpv_animAutostart="true"
+            app:cpv_thickness="20dp"
+            app:cpv_indeterminate="true" />
 
+        <com.rey.material.widget.FloatingActionButton
+            android:id="@+id/loginButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            app:rd_enable="true"
+            app:fab_iconSrc="@drawable/google_icon"
+            app:fab_backgroundColor="@color/white"
+            app:fab_radius="40dp"
+            />
 
-    <com.rey.material.widget.FloatingActionButton
-        android:id="@+id/fabId"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="130dp"
-        android:layout_below="@+id/progressViewLogin"
-        android:layout_centerHorizontal="true"
-        app:rd_enable="true"
-        app:fab_iconSrc="@android:drawable/ic_secure"
-        app:fab_radius="50dp"
-        />
+        <com.rey.material.widget.FloatingActionButton
+            android:id="@+id/locationButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            app:rd_enable="true"
+            app:fab_iconSrc="@android:drawable/ic_secure"
+            app:fab_radius="40dp" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

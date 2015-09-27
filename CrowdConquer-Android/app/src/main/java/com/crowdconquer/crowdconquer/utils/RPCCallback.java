@@ -1,4 +1,4 @@
-package com.example.crowdconquer.crowdconquer_android;
+package com.crowdconquer.crowdconquer.utils;
 
 /**
  * Created by michel on 9/26/15.
