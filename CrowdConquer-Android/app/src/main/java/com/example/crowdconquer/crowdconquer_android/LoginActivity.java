@@ -7,21 +7,41 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
 import com.rey.material.widget.FloatingActionButton;
 
-import java.util.concurrent.Executor;
+class ExtendedHandler extends Handler {
+    private RPC rpc;
 
+    public void setRPC(RPC rpc){
+        this.rpc = rpc;
+    }
+    public ExtendedHandler(){
+    }
+
+    @Override
+    public void handleMessage(Message message){
+
+        int id = message.getData().getInt("callbackId");
+        RPCCallback callback = rpc.getCallback(id);
+        Object response = rpc.getResponse(id);
+
+        callback.action(response);
+    }
+}
 
 public class LoginActivity extends Activity {
-
     FloatingActionButton loginButton;
     String T = "L";
 
     private NetworkTask networkTask; // TODO Where should we declare variables that are going to be accessed by all activities?
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +56,34 @@ public class LoginActivity extends Activity {
 
         networkTask = new NetworkTask();
 
+        ExtendedHandler handler = new ExtendedHandler();
+        networkTask.setHandler(handler);
+
+
         networkTask.onConnect(new Callback() {
             @Override
             public void action() {
                 onConnect();
             }
         });
+
+
         networkTask.start();
 
 
     }
 
-    public void onConnect(){
+    public void onConnect() {
         Log.d(T, "Frontend is connected");
+
         networkTask.getRpc().hello(new RPCCallback() {
             @Override
             public void action(Object response) {
                 String info = (String) response;
-                Log.d(T, "received response: " + info);
+                Log.d(T, "received response on callback: " + info);
             }
         });
+
 
     }
 

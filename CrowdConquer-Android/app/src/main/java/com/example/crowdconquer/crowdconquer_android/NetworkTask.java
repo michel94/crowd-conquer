@@ -1,5 +1,9 @@
 package com.example.crowdconquer.crowdconquer_android;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import com.example.crowdconquer.crowdconquer_android.NaiveSSLContext;
 
@@ -10,19 +14,27 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by michel on 9/24/15.
  */
+
 public class NetworkTask extends Thread{
     private String T="Network"; // tag for Log
-    private String socketEndpoint = "wss://192.168.1.78:8080";
+    private String socketEndpoint = "wss://192.168.1.8:8080";
     private RPC rpc;
 
     private Callback onConnectionCallback = null;
 
+    private ExtendedHandler handler;
+
     private WebSocket ws;
 
     public NetworkTask(){
+    }
+    public void setHandler(ExtendedHandler handler){
+        this.handler = handler;
     }
 
     public WebSocket getSocket() {
@@ -49,6 +61,7 @@ public class NetworkTask extends Thread{
                         @Override
                         public void onTextMessage(WebSocket ws, String message) {
                             /* handles server messages */
+                            Log.d(T, "New message");
 
                             try {
                                 JSONObject jRoot = new JSONObject(message);
@@ -72,6 +85,8 @@ public class NetworkTask extends Thread{
                     .connect();
 
             rpc = new RPC(ws);
+            handler.setRPC(rpc);
+
             if(onConnectionCallback != null)
                 onConnectionCallback.action();
 
@@ -85,13 +100,21 @@ public class NetworkTask extends Thread{
 
     public void handleCallback(JSONObject json){
         // TODO entire function needs better error handling but depends on the specific json to class code
-
+        
         try {
             JSONObject jsonResponse = json.getJSONObject("response");
             int id = json.getInt("callbackId");
 
             String response = jsonResponse.getString("info"); // TODO automatic conversion from json response to Object
-            rpc.handleResponse(id, response);
+            rpc.addResponse(id, response);
+
+            Message msg = handler.obtainMessage();
+            Bundle b = new Bundle();
+            b.putInt("callbackId", id);
+            msg.setData(b);
+            handler.sendMessage(msg);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
