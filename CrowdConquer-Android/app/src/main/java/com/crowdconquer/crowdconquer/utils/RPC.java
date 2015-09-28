@@ -13,15 +13,17 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class RPC {
     private WebSocket ws;
     private ConcurrentSkipListMap<Integer, RPCCallback> callbackMap;
+    private ConcurrentSkipListMap<Integer, Object> responseMap;
     private int callbackCount = 1;
 
     public RPC(){
 
     }
+
     public RPC(WebSocket ws){
         this.ws = ws;
         callbackMap = new ConcurrentSkipListMap<Integer, RPCCallback>();
-
+        responseMap = new ConcurrentSkipListMap<Integer, Object>();
     }
 
     private JSONObject genJson(String name, RPCCallback callback, String[] names, JSONable... args){
@@ -50,8 +52,22 @@ public class RPC {
         return jRoot;
     }
 
-    public void handleResponse(int id, Object response){
-        callbackMap.get(id).action(response);
+    public RPCCallback getCallback(int id){
+        return callbackMap.get(id);
+    }
+
+    public boolean addResponse(int id, Object response){
+        if(callbackMap.containsKey(id)) {
+            responseMap.put(id, response);
+            return true;
+        }
+        return false;
+
+
+    }
+
+    public Object getResponse(int id){
+        return responseMap.get(id);
     }
 
     public void hello(RPCCallback callback){

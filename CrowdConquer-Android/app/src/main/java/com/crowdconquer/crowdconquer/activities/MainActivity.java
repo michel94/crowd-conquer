@@ -9,7 +9,7 @@ import com.crowdconquer.crowdconquer.utils.Callback;
 import com.crowdconquer.crowdconquer.R;
 import com.crowdconquer.crowdconquer.utils.RPCCallback;
 import com.crowdconquer.crowdconquer.global.Network;
-
+import com.crowdconquer.crowdconquer.utils.ExtendedHandler;
 
 public class MainActivity extends Activity {
     String T = "L";
@@ -45,6 +45,9 @@ public class MainActivity extends Activity {
             });
             Network.networkTask.start();
         }
+
+        ExtendedHandler handler = new ExtendedHandler();
+        Network.networkTask.setHandler(handler);
     }
 
     public void onConnect(){
@@ -53,10 +56,9 @@ public class MainActivity extends Activity {
             @Override
             public void action(Object response) {
                 String info = (String) response;
-                Log.d(T, "received response: " + info);
+                Log.d(T, "received response on callback: " + info);
             }
         });
-
     }
 
 }
