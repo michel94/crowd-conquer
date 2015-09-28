@@ -46,7 +46,7 @@ public class NetworkTask extends Thread{
     @Override
     public void run() {
         Log.d(T, "Network thread created.");
-        started = true;
+        running = true;
 
         try{
             WebSocketFactory factory = new WebSocketFactory();
