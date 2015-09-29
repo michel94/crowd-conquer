@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.R;
+import com.crowdconquer.crowdconquer.global.LocationHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,20 +33,32 @@ public class LoginActivity extends Activity {
 
     GoogleClient googleClient;
 
+    LocationHelper locationHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViews();
+
+        initViewsLogin();
         startListeners();
         initGoogleApiClient();
+        initLocationHelper();
+
     }
 
-    void initViews() {
+
+    void initViewsLogin() {
         setContentView(R.layout.activity_login);
         locationButton = (FloatingActionButton) findViewById(R.id.locationButton);
         loginButton = (FloatingActionButton) findViewById(R.id.loginButton);
         loginStatusText = (TextView) findViewById(R.id.loginStatusText);
     }
+
+    void initLocationHelper(){
+        locationHelper = new LocationHelper((LocationManager) getSystemService(LOCATION_SERVICE));
+        locationHelper.checkLocationManagerStatus(this);
+    }
+
 
     void startListeners() {
         setOnClickListenerLogin();
@@ -61,32 +74,10 @@ public class LoginActivity extends Activity {
     }
 
     void loadMainActivity() {
-        if (isAppReadyToLogin()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }
-    }
 
-    boolean isAppReadyToLogin() {
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Location Services Not Active");
-            builder.setMessage("Please enable Location Services and GPS and try again");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
-                }
-            });
-            Dialog alertDialog = builder.create();
-            alertDialog.setCanceledOnTouchOutside(false);
-            alertDialog.show();
-            return false;
-        } else {
-            return true;
-        }
     }
 
     //Google Account
@@ -111,4 +102,5 @@ public class LoginActivity extends Activity {
         googleClient.mGoogleApiClient.connect();
         loginStatusText.setText("Signing you in...");
     }
+
 }
