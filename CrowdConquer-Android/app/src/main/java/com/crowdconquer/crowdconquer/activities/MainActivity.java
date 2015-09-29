@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         Network.networkTask.setHandler(handler);
     }
 
-    public void onConnect(){
+    public void onConnect() {
         Log.d(T, "Frontend is connected");
         Network.networkTask.getRpc().hello(new RPCCallback() {
             @Override
@@ -60,5 +60,4 @@ public class MainActivity extends Activity {
             }
         });
     }
-
 }

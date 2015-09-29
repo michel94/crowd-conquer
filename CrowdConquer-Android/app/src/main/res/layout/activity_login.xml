@@ -26,6 +26,16 @@
             android:gravity="center"
             android:textSize="40sp"/>
 
+        <com.rey.material.widget.TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white"
+            android:id="@+id/loginStatusText"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
         <com.github.rahatarmanahmed.cpv.CircularProgressView
             android:id="@+id/progressViewLogin"
             android:layout_width="100dp"

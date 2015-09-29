@@ -22,7 +22,7 @@ public class ExtendedHandler extends Handler {
     }
 
     @Override
-    public void handleMessage(Message message){
+    public void handleMessage(Message message) {
         int id = message.getData().getInt("callbackId");
         RPCCallback callback = rpc.getCallback(id);
         Object response = rpc.getResponse(id);
