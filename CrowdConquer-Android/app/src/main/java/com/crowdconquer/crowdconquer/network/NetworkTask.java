@@ -19,9 +19,6 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by michel on 9/24/15.
- */
 
 public class NetworkTask extends Thread{
     private String T="Network"; // tag for Log

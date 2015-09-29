@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
 
-/**
- * Created by josemarcelino on 29/09/15.
- */
+
 public class LocationHelper {
 
     LocationManager locationManager;

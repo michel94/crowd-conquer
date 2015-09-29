@@ -1,25 +1,14 @@
 package com.crowdconquer.crowdconquer.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.R;
 import com.crowdconquer.crowdconquer.global.LocationHelper;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.plus.Plus;
 import com.rey.material.widget.FloatingActionButton;
 
 import com.crowdconquer.crowdconquer.google.GoogleClient;
