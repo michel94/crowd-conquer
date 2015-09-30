@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.crowdconquer.crowdconquer.global.LocationHelper;
 import com.crowdconquer.crowdconquer.utils.Callback;
@@ -33,6 +35,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         webView = (WebView) findViewById(R.id.webViewId);
+
+        /* // needed for buggy phones
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webView.setWebViewClient(new WebViewClient()); */
+        
         webView.loadUrl("http://crowdconquer.meteor.com/");
     }
 
