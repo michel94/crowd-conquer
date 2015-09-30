@@ -5,6 +5,7 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.crowdconquer.crowdconquer.utils.Callback;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +27,8 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
 
     private Activity activity;
 
+    private Callback onConnectionCallback = null;
+
     public GoogleClient(Activity activity) {
         this.activity = activity;
         mGoogleApiClient = new GoogleApiClient.Builder(activity)
@@ -37,11 +40,16 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
                 .build();
     }
 
+    public void onConnectedCallback(Callback callback){
+        this.onConnectionCallback = callback;
+    }
+
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("Google Api Client", "Connected " + Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).toString());
+        Log.d("Google Api Client", "Connected ");
         mShouldResolve = false;
-        //loadMainActivity...
+        if(onConnectionCallback != null)
+            onConnectionCallback.action();
     }
 
     @Override
@@ -49,7 +57,7 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("Google Api Client", "Failed");
+        Log.d("Google Api Client", "Failed " + connectionResult.toString());
         signIn(connectionResult);
     }
 
@@ -59,6 +67,7 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
                 try {
                     connectionResult.startResolutionForResult(this.activity, RC_SIGN_IN);
                     mIsResolving = true;
+                    Log.d("Google Api Client", "Resolving");
                 } catch (IntentSender.SendIntentException e) {
                     Log.d("Google Api Client", "Could not resolve Connection Result.", e);
                     mIsResolving = false;
@@ -66,9 +75,11 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
                 }
             } else {
                 // TODO Could not resolve the connection result, show the user an error dialog.
+                Log.d("Google Api Client", "Rekt");
             }
         } else {
             // Show the signed-out UI
+            Log.d("Google Api Client", "Rekt2");
         }
     }
 
@@ -79,5 +90,19 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             mGoogleApiClient.disconnect();
         }
+    }
+
+    public void startSignIn() {
+        mShouldResolve = true;
+        mGoogleApiClient.connect();
+    }
+
+    public void processResolution(int resultCode, int RESULT_OK) {
+        // If the error resolution was not successful we should not resolve further.
+        if (resultCode != RESULT_OK) {
+            mShouldResolve = false;
+        }
+        mIsResolving = false;
+        mGoogleApiClient.connect();
     }
 }

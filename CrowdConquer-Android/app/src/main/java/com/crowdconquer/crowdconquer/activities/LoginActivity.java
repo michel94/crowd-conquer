@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.crowdconquer.crowdconquer.R;
+import com.crowdconquer.crowdconquer.utils.Callback;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,7 +29,6 @@ public class LoginActivity extends Activity {
 
     FloatingActionButton locationButton;
     FloatingActionButton loginButton;
-    TextView loginStatusText;
 
     GoogleClient googleClient;
 
@@ -44,7 +44,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         locationButton = (FloatingActionButton) findViewById(R.id.locationButton);
         loginButton = (FloatingActionButton) findViewById(R.id.loginButton);
-        loginStatusText = (TextView) findViewById(R.id.loginStatusText);
     }
 
     void startListeners() {
@@ -55,7 +54,7 @@ public class LoginActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGoogleSignIn();
+                googleClient.startSignIn();
             }
         });
     }
@@ -92,6 +91,12 @@ public class LoginActivity extends Activity {
     //Google Account
     private void initGoogleApiClient() {
         googleClient = new GoogleClient(this);
+        googleClient.onConnectedCallback(new Callback() {
+            @Override
+            public void action() {
+                loadMainActivity();
+            }
+        });
     }
 
     @Override
@@ -106,9 +111,11 @@ public class LoginActivity extends Activity {
         googleClient.mGoogleApiClient.disconnect();
     }
 
-    void startGoogleSignIn() {
-        googleClient.mShouldResolve = true;
-        googleClient.mGoogleApiClient.connect();
-        loginStatusText.setText("Signing you in...");
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == googleClient.RC_SIGN_IN) {
+            googleClient.processResolution(resultCode, RESULT_OK);
+        }
     }
 }

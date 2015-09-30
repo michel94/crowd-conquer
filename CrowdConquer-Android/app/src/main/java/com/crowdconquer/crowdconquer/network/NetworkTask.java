@@ -100,7 +100,6 @@ public class NetworkTask extends Thread{
             if(onConnectionCallback != null)
                 onConnectionCallback.action();
 
-
             Log.d(T, "connected");
         }catch (Exception e){
             Log.d(T, "could not connect");
