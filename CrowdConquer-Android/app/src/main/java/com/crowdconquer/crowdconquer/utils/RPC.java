@@ -7,9 +7,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 
-/**
- * Created by michel on 9/26/15.
- */
+
 public class RPC {
     private WebSocket ws;
     private ConcurrentSkipListMap<Integer, RPCCallback> callbackMap;

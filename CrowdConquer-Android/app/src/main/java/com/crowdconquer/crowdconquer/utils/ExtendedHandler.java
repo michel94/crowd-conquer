@@ -7,9 +7,6 @@ import com.crowdconquer.crowdconquer.utils.RPC;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by michel on 9/27/15.
- */
 
 public class ExtendedHandler extends Handler {
     private RPC rpc;
