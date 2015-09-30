@@ -69,17 +69,15 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
                     mIsResolving = true;
                     Log.d("Google Api Client", "Resolving");
                 } catch (IntentSender.SendIntentException e) {
-                    Log.d("Google Api Client", "Could not resolve Connection Result.", e);
+                    Log.d("Google Api Client", "Could not resolve", e);
                     mIsResolving = false;
                     mGoogleApiClient.connect();
                 }
             } else {
-                // TODO Could not resolve the connection result, show the user an error dialog.
-                Log.d("Google Api Client", "Rekt");
+                // TODO Could not resolve the connection result, show the user an error dialog
             }
         } else {
             // Show the signed-out UI
-            Log.d("Google Api Client", "Rekt2");
         }
     }
 

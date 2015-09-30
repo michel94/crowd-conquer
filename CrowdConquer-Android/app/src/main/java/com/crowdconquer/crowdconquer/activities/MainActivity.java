@@ -1,10 +1,12 @@
 package com.crowdconquer.crowdconquer.activities;
 
 import android.app.Activity;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
+import com.crowdconquer.crowdconquer.global.LocationHelper;
 import com.crowdconquer.crowdconquer.utils.Callback;
 import com.crowdconquer.crowdconquer.R;
 import com.crowdconquer.crowdconquer.utils.RPCCallback;
@@ -16,11 +18,14 @@ public class MainActivity extends Activity {
 
     WebView webView;
 
+    LocationHelper locationHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViews();
         startListeners();
+        initLocationHelper();
         startNetworkTask();
     }
 
@@ -33,6 +38,11 @@ public class MainActivity extends Activity {
 
     void startListeners() {
 
+    }
+
+    void initLocationHelper() {
+        locationHelper = new LocationHelper((LocationManager) getSystemService(LOCATION_SERVICE));
+        locationHelper.checkLocationManagerStatus(this);
     }
 
     void startNetworkTask() {

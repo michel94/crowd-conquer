@@ -2,7 +2,6 @@ package com.crowdconquer.crowdconquer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
-import com.crowdconquer.crowdconquer.global.LocationHelper;
 import com.rey.material.widget.FloatingActionButton;
 
 import com.crowdconquer.crowdconquer.google.GoogleClient;
@@ -27,31 +25,19 @@ public class LoginActivity extends Activity {
 
     GoogleClient googleClient;
 
-    LocationHelper locationHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initViewsLogin();
         startListeners();
         initGoogleApiClient();
-        initLocationHelper();
-
     }
-
 
     void initViewsLogin() {
         setContentView(R.layout.activity_login);
         locationButton = (FloatingActionButton) findViewById(R.id.locationButton);
         loginButton = (FloatingActionButton) findViewById(R.id.loginButton);
     }
-
-    void initLocationHelper(){
-        locationHelper = new LocationHelper((LocationManager) getSystemService(LOCATION_SERVICE));
-        locationHelper.checkLocationManagerStatus(this);
-    }
-
 
     void startListeners() {
         setOnClickListenerLogin();
@@ -70,7 +56,6 @@ public class LoginActivity extends Activity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-
     }
 
     //Google Account
