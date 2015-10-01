@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference;
 
 
 public class NetworkTask extends Thread{
-    private String T="Network"; // tag for Log
+    private String TAG = "Network"; // tag for Log
     private String socketEndpoint = "wss://192.168.1.8:8080";
     private RPC rpc;
     private boolean running = false;
@@ -56,7 +56,7 @@ public class NetworkTask extends Thread{
     }
     @Override
     public void run() {
-        Log.d(T, "Network thread created.");
+        Log.d(TAG, "Network thread created.");
         running = true;
 
         try{
@@ -68,7 +68,7 @@ public class NetworkTask extends Thread{
                         @Override
                         public void onTextMessage(WebSocket ws, String message) {
                             /* handles server messages */
-                            Log.d(T, "New message");
+                            Log.d(TAG, "New message");
 
                             try {
                                 JSONObject jRoot = new JSONObject(message);
@@ -82,7 +82,7 @@ public class NetworkTask extends Thread{
                                 }
 
                             } catch (JSONException e) {
-                                Log.d(T, "Invalid JSON object.");
+                                Log.d(TAG, "Invalid JSON object.");
                             }
 
                             // Close the WebSocket connection.
@@ -97,9 +97,9 @@ public class NetworkTask extends Thread{
             if(onConnectionCallback != null)
                 onConnectionCallback.action();
 
-            Log.d(T, "connected");
+            Log.d(TAG, "connected");
         }catch (Exception e){
-            Log.d(T, "could not connect");
+            Log.d(TAG, "could not connect");
             e.printStackTrace();
         }
     }

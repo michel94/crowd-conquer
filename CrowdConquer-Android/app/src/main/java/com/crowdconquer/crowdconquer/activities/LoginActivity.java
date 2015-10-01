@@ -19,6 +19,7 @@ import com.crowdconquer.crowdconquer.google.GoogleClient;
 
 
 public class LoginActivity extends Activity {
+    String TAG = "LoginActivity";
 
     FloatingActionButton locationButton;
     FloatingActionButton loginButton;

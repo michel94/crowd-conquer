@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.crowdconquer.crowdconquer.global.LocationHelper;
 import com.crowdconquer.crowdconquer.utils.Callback;
@@ -14,35 +11,29 @@ import com.crowdconquer.crowdconquer.R;
 import com.crowdconquer.crowdconquer.utils.RPCCallback;
 import com.crowdconquer.crowdconquer.global.Network;
 import com.crowdconquer.crowdconquer.utils.ExtendedHandler;
+import com.mapbox.mapboxgl.views.MapView;
 
 public class MainActivity extends Activity {
-    String T = "L";
-
-    WebView webView;
+    String TAG = "MainActivity";
 
     LocationHelper locationHelper;
+    MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViews();
+        initViews(savedInstanceState);
+        initMapbox();
         startListeners();
         initLocationHelper();
         startNetworkTask();
     }
 
-    void initViews() {
+    void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-
-        webView = (WebView) findViewById(R.id.webViewId);
-
-        /* // needed for buggy phones
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webView.setWebViewClient(new WebViewClient()); */
-        
-        webView.loadUrl("http://crowdconquer.meteor.com/");
+        mapView = (MapView) findViewById(R.id.mainMapView);
+        mapView.setAccessToken("sk.eyJ1IjoiY3Jvd2Rjb25xdWVyIiwiYSI6ImNpZjhkamZ0eTAwNG90Zmx4eW5vYnBpa3IifQ.-VwL7o-gHsWOWAmfO_be-Q");
+        mapView.onCreate(savedInstanceState);
     }
 
     void startListeners() {
@@ -52,6 +43,10 @@ public class MainActivity extends Activity {
     void initLocationHelper() {
         locationHelper = new LocationHelper((LocationManager) getSystemService(LOCATION_SERVICE));
         locationHelper.checkLocationManagerStatus(this);
+    }
+
+    void initMapbox() {
+
     }
 
     void startNetworkTask() {
@@ -70,12 +65,12 @@ public class MainActivity extends Activity {
     }
 
     public void onConnect() {
-        Log.d(T, "Frontend is connected");
+        Log.d(TAG, "Frontend is connected");
         Network.networkTask.getRpc().hello(new RPCCallback() {
             @Override
             public void action(Object response) {
                 String info = (String) response;
-                Log.d(T, "received response on callback: " + info);
+                Log.d(TAG, "received response on callback: " + info);
             }
         });
     }

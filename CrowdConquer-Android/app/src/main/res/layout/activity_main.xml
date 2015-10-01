@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.crowdconquer.activities.MainActivity">
 
-    <WebView
+    <com.mapbox.mapboxgl.views.MapView
+        android:id="@+id/mainMapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/webViewId">
-    </WebView>
+        />
 
 </RelativeLayout>

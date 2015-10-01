@@ -13,6 +13,8 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 
 public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  GoogleApiClient.OnConnectionFailedListener {
+    String TAG = "GoogleClient";
+
     /* Request code used to invoke sign in user interactions. */
     public final int RC_SIGN_IN = 0;
 
@@ -46,7 +48,7 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("Google Api Client", "Connected ");
+        Log.d(TAG, "Connected ");
         mShouldResolve = false;
         if(onConnectionCallback != null)
             onConnectionCallback.action();
@@ -57,7 +59,7 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("Google Api Client", "Failed " + connectionResult.toString());
+        Log.d(TAG, "Failed " + connectionResult.toString());
         signIn(connectionResult);
     }
 
@@ -67,9 +69,9 @@ public class GoogleClient implements GoogleApiClient.ConnectionCallbacks,  Googl
                 try {
                     connectionResult.startResolutionForResult(this.activity, RC_SIGN_IN);
                     mIsResolving = true;
-                    Log.d("Google Api Client", "Resolving");
+                    Log.d(TAG, "Resolving");
                 } catch (IntentSender.SendIntentException e) {
-                    Log.d("Google Api Client", "Could not resolve", e);
+                    Log.d(TAG, "Could not resolve", e);
                     mIsResolving = false;
                     mGoogleApiClient.connect();
                 }
