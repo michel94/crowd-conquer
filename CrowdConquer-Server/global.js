@@ -1,5 +1,5 @@
 Router.route('/', {
-	template: 'home'
+	template: 'Home'
 })
 
 Router.route('/map', {
