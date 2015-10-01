@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
 
 public class NetworkTask extends Thread{
     private String TAG = "Network"; // tag for Log
-    private String socketEndpoint = "wss://192.168.1.8:8080";
+    private String socketEndpoint = "wss://192.168.1.3:8080";
     private RPC rpc;
     private boolean running = false;
 
