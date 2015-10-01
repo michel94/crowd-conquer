@@ -1,3 +1,27 @@
+
+
+
+Mapbox.load({
+	gl: true
+})
+
+// Using a template's rendered callback
+Meteor.startup(function(){
+    Mapbox.load();
+});
+
+Template.Home.rendered = function () {
+    this.autorun(function () {
+        if (Mapbox.loaded()) {
+            L.mapbox.accessToken = 'pk.eyJ1IjoibWljaGVsOTQiLCJhIjoiY2lmOG5tY2VwMDA0cHU4a29teHdxYXQ0eiJ9.ozJryFcasFMZBl9ODlKK4A';
+            var map = L.mapbox.map('map', 'michel94.cif6pjief006sthm0b3gjm726');
+        }
+    });
+};
+
+
+
+// just for testing
 websocket = null;
 window.onload = function() {
 	connect('wss://localhost:8080/');
