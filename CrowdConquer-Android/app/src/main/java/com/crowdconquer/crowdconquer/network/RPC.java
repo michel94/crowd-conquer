@@ -1,5 +1,7 @@
-package com.crowdconquer.crowdconquer.utils;
+package com.crowdconquer.crowdconquer.network;
 
+import com.crowdconquer.crowdconquer.utils.JSONable;
+import com.crowdconquer.crowdconquer.utils.RPCCallback;
 import com.neovisionaries.ws.client.WebSocket;
 
 import org.json.JSONException;
@@ -54,6 +56,11 @@ public class RPC {
         return callbackMap.get(id);
     }
 
+    public int registerCallback(RPCCallback callback){
+        callbackMap.put(callbackCount++, callback);
+        return callbackCount-1;
+    }
+
     public boolean addResponse(int id, Object response){
         if(callbackMap.containsKey(id)) {
             responseMap.put(id, response);
@@ -74,11 +81,6 @@ public class RPC {
 
         ws.sendText(jRoot.toString());
 
-    }
-
-    public int registerCallback(RPCCallback callback){
-        callbackMap.put(callbackCount++, callback);
-        return callbackCount-1;
     }
 }
 
