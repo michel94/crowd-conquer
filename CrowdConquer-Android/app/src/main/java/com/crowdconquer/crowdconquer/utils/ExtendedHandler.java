@@ -3,9 +3,7 @@ package com.crowdconquer.crowdconquer.utils;
 import android.os.Handler;
 import android.os.Message;
 
-import com.crowdconquer.crowdconquer.utils.RPC;
-
-import java.lang.ref.WeakReference;
+import com.crowdconquer.crowdconquer.network.RPC;
 
 
 public class ExtendedHandler extends Handler {

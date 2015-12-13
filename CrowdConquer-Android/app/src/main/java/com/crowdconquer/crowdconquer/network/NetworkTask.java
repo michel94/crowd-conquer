@@ -1,12 +1,9 @@
 package com.crowdconquer.crowdconquer.network;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import com.crowdconquer.crowdconquer.network.NaiveSSLContext;
-import com.crowdconquer.crowdconquer.utils.RPC;
+
 import com.crowdconquer.crowdconquer.utils.Callback;
 import com.crowdconquer.crowdconquer.utils.ExtendedHandler;
 
@@ -16,8 +13,6 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
 
 
 public class NetworkTask extends Thread{
@@ -119,7 +114,6 @@ public class NetworkTask extends Thread{
             b.putInt("callbackId", id);
             msg.setData(b);
             handler.sendMessage(msg);
-
 
         } catch (JSONException e) {
             e.printStackTrace();

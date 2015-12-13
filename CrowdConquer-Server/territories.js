@@ -18,25 +18,20 @@ function calcLatPerimeter(lat_id){
 function calcLonId(lat_id, lon){
 	P = calcLatPerimeter(lat_id);
 	n_cells = P / CELL_SIDE;
-	console.log("n_cells", n_cells)
 	/*	180 ------- n_cells
-		lon ------- x*/
+		lon ------- x		*/
 	lon_id = truncate(lon * n_cells / Math.PI);
 	return lon_id;
 
 }
 
-function mapCoords(lat, lon){
+mapCoords = function(lat, lon){
 	y = calcLatId(lat);
 	x = calcLonId(y, lon);
 	return {x: x, y: y}
 }
 
-fetchTerritory = function(){
-	
-}
-
-console.log(LAT_ANGLE_DIV);
-
 coords = mapCoords(-Math.PI / 2, Math.PI * 3 / 4);
 console.log(coords);
+
+

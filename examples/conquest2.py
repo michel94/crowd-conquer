@@ -1,7 +1,7 @@
 # More advanced algorithm test
 #
 # Graph's algorithm:
-# Every team send ownership to all the teams that have more or equal 
+# Every team sends ownership to all the teams that have more or equal 
 # number of players (neighbours). The amount sent by each team depends 
 # on the current ownership and the number of players in the neighbours
 
@@ -39,9 +39,12 @@ def game(teams):
 	return cur_dist
 	
 
-teams = [	{"id": 0, "n_players": 5, "ownership": 70.0},
+teams = [	{"id": 0, "n_players": 5, "ownership": 40.0},
 			{"id": 1, "n_players": 5, "ownership": 20.0},
-			{"id": 2, "n_players": 5, "ownership": 10.0}
+			{"id": 2, "n_players": 5, "ownership": 15.0},
+			{"id": 3, "n_players": 5, "ownership": 12.0},
+			{"id": 4, "n_players": 5, "ownership": 5.0},
+			{"id": 5, "n_players": 5, "ownership": 8.0}
 		]
 
 plots = [[] for _ in range(len(teams))]

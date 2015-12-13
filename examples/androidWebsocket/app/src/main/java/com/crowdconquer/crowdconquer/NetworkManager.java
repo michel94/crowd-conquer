@@ -18,40 +18,40 @@ import javax.net.ssl.SSLSocketFactory;
  * Created by michel on 9/22/15.
  */
 public class NetworkManager extends AsyncTask<String, Object, Object> {
-    WebSocket ws;
-    String T = "NetworkManager";
-    protected void onPostExecute() {
+	WebSocket ws;
+	String T = "NetworkManager";
+	protected void onPostExecute() {
 
-    }
+	}
 
-    @Override
-    protected Object doInBackground(String... params) {
-        try{
-            WebSocketFactory factory = new WebSocketFactory();
-            factory.setSSLContext(NaiveSSLContext.getInstance("TLS"));
+	@Override
+	protected Object doInBackground(String... params) {
+		try{
+			WebSocketFactory factory = new WebSocketFactory();
+			factory.setSSLContext(NaiveSSLContext.getInstance("TLS"));
 
-            factory
-                    .createSocket("wss://192.168.1.5:8080")
-                    .addListener(new WebSocketAdapter() {
-                        @Override
-                        public void onTextMessage(WebSocket ws, String message) {
-                            // Received a response. Print the received message.
-                            System.out.println(message);
+			factory
+					.createSocket("wss://192.168.1.5:8080")
+					.addListener(new WebSocketAdapter() {
+						@Override
+						public void onTextMessage(WebSocket ws, String message) {
+							// Received a response. Print the received message.
+							System.out.println(message);
 
-                            // Close the WebSocket connection.
-                            ws.disconnect();
-                        }
-                    })
-                    .connect()
-                    .sendText("Hello.");
+							// Close the WebSocket connection.
+							ws.disconnect();
+						}
+					})
+					.connect()
+					.sendText("Hello.");
 
-            Log.d(T, "ok");
-        }catch (Exception e){
-            Log.d(T, "could not connect");
-            e.printStackTrace();
-        }
+			Log.d(T, "ok");
+		}catch (Exception e){
+			Log.d(T, "could not connect");
+			e.printStackTrace();
+		}
 
-        return new Object();
-    }
+		return new Object();
+	}
 }
 

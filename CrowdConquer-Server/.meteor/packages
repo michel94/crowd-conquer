@@ -6,10 +6,8 @@
 
 autopublish
 insecure
-meteorhacks:npm
 
 
-npm-container
 iron:router
 standard-minifiers
 meteor-base
@@ -27,3 +25,8 @@ spacebars
 check
 materialize:materialize@=0.97.0
 pauloborges:mapbox
+meteorhacks:npm
+
+
+
+npm-container

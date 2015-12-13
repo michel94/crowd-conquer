@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CrowdConquer-Android.iml" filepath="$PROJECT_DIR$/CrowdConquer-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/MapboxGLAndroidSDK/MapboxGLAndroidSDK.iml" filepath="$PROJECT_DIR$/libs/MapboxGLAndroidSDK/MapboxGLAndroidSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
     </modules>
   </component>
 </project>
-

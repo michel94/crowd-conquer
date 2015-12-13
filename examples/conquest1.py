@@ -36,8 +36,8 @@ def game(teams):
 	
 
 teams = [	{"id": 0, "n_players": 5, "ownership": 70.0},
-			{"id": 1, "n_players": 5, "ownership": 20.0},
-			{"id": 2, "n_players": 5, "ownership": 10.0}
+			{"id": 1, "n_players": 6, "ownership": 20.0},
+			{"id": 2, "n_players": 4, "ownership": 10.0}
 		]
 
 plots = [[] for _ in range(len(teams))]
