@@ -38,7 +38,10 @@ WSServer = function(port){
 
 
 setupWebsocket = function(){
-	wsServer = new WSServer(8080);
+	if(!process.env.IS_MIRROR)
+		wsServer = new WSServer(8080);
+	else
+		wsServer = new WSServer(9090);
 
 	function onRequest(request){
 		// TODO verify request.origin
