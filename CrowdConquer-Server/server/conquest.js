@@ -27,10 +27,9 @@ function iterate(teams){
 			nTeams++;
 			
 		}
-		console.log(i, playerCount);
 		var div = team.nPlayers;
 		if(div == 0)
-			div = 0.2;
+			div = 0.1;
 
 		var loss = (playerCount / div) * C * team.ownership;
 		team.gift = loss;
@@ -42,11 +41,12 @@ function iterate(teams){
 		for(var o=0; o<teams.length; o++){
 			var other = teams[o];
 			
-			if(i == o || other.nPlayers < team.nPlayers)
+			if(i == o || other.nPlayers > team.nPlayers)
 				continue;
 
 			team.ownership += other.gift;
 		}
+		
 	}
 
 }
