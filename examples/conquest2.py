@@ -21,7 +21,10 @@ def game(teams):
 				player_count += other["n_players"]
 				n_teams += 1
 
-		loss = (player_count / team["n_players"]) * C * team["ownership"]
+		div = team["n_players"]
+		if div == 0:
+			div = 0.2
+		loss = (player_count / div) * C * team["ownership"]
 		team["gift"] = loss
 		team["ownership"] -= loss * n_teams
 
@@ -38,7 +41,7 @@ def game(teams):
 
 	return cur_dist
 	
-
+'''
 teams = [	{"id": 0, "n_players": 5, "ownership": 40.0},
 			{"id": 1, "n_players": 5, "ownership": 20.0},
 			{"id": 2, "n_players": 5, "ownership": 15.0},
@@ -46,11 +49,16 @@ teams = [	{"id": 0, "n_players": 5, "ownership": 40.0},
 			{"id": 4, "n_players": 5, "ownership": 5.0},
 			{"id": 5, "n_players": 5, "ownership": 8.0}
 		]
+'''
+
+teams = [	{"id": 0, "n_players": 0, "ownership": 100.0},
+			{"id": 1, "n_players": 1, "ownership": 0.0},
+		]
 
 plots = [[] for _ in range(len(teams))]
 
 i = 0
-while i < 100:
+while i < 60:
 	dist = game(teams)
 	i+= 1
 

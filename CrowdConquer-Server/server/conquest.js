@@ -9,6 +9,7 @@ var C = 0.01
  * @return	none
  */
 function iterate(teams){
+
 	var nPlayers = 0;
 	for(var i=0; i<nPlayers; i++)
 		nPlayers += team.nPlayers;
@@ -26,7 +27,12 @@ function iterate(teams){
 			nTeams++;
 			
 		}
-		var loss = (playerCount / team.nPlayers);
+		console.log(i, playerCount);
+		var div = team.nPlayers;
+		if(div == 0)
+			div = 0.2;
+
+		var loss = (playerCount / div) * C * team.ownership;
 		team.gift = loss;
 		team.ownership -= loss * nTeams;
 	}
